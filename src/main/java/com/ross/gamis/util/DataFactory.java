@@ -2,6 +2,8 @@ package com.ross.gamis.util;
 
 import com.ross.gamis.game.Game;
 import com.ross.gamis.store.Store;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,10 +11,16 @@ import java.util.List;
 
 @Repository
 public class DataFactory {
-    public static List<Game> games;
-    public static List<Store> stores;
+    public static List<Game> games = new ArrayList<>();
+    public static List<Store> stores = new ArrayList<>();
 //    private static List<Developer> developers;
 
+//    @PostConstruct
+//    public DataFactory(){
+//        seed();
+//    }
+
+    @PostConstruct
     public static void seed() {
         games.add(new Game("Dota 2", Game.parseDate("2011-08-23"), 0, true));
         games.add(new Game("Counter-Strike: Global Offensive", Game.parseDate("2012-08-21"), 0, true));
@@ -55,5 +63,9 @@ public class DataFactory {
 
     public static List<Game> getGames() {
         return games;
+    }
+
+    public static void addGame(Game game){
+        games.add(game);
     }
 }

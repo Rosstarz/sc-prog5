@@ -76,6 +76,14 @@ public class Game {
         return ownedStoreId;
     }
 
+    public Developer getDeveloper() {
+        return developer;
+    }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
