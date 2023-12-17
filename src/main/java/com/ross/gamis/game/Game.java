@@ -18,6 +18,14 @@ public class Game {
     private Developer developer;
     private List<Store> stores;
 
+    public Game() {
+    }
+
+    // TODO TESTING
+    public Game(String title) {
+        this.title = title;
+    }
+
     public Game(int id, String title, LocalDate releaseDate, double price, int developerId, boolean owned, int ownedStoreId) {
         this.id = id;
         this.title = title;

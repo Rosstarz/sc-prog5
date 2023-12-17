@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,8 +24,17 @@ public class GameController {
         return "games";
     }
 
-    @PostMapping
-    public void addGame(Game game){
+    @GetMapping("/add")
+    public String addGame(Model model){
+        model.addAttribute("addGameForm", new Game());
+        return "addgame";
+    }
+
+    @PostMapping("register")
+    public String registerGame(@ModelAttribute Game game, Model model){
         gameService.addGame(game);
+        model.addAttribute("addGameForm", new Game());
+        model.addAttribute("message", "Successfully added");
+        return "addgame";
     }
 }
