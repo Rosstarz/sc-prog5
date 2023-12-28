@@ -3,10 +3,7 @@ package com.ross.gamis.game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/games")
@@ -20,8 +17,13 @@ public class GameController {
     @GetMapping
     public String showGames(Model model){
         model.addAttribute("games",gameService.getGames());
-        model.addAttribute("some","somesome");
         return "games";
+    }
+
+    @GetMapping("/{id}")
+    public String showGame(Model model, @PathVariable(value = "id") Long id){
+        model.addAttribute("game",gameService.getGame(id));
+        return "game";
     }
 
     @GetMapping("/add")
@@ -37,4 +39,5 @@ public class GameController {
         model.addAttribute("message", "Successfully added");
         return "addgame";
     }
+
 }

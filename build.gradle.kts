@@ -30,6 +30,9 @@ dependencies {
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
     implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.webjars:bootstrap:5.3.2")
+    testImplementation("org.projectlombok:lombok:1.18.30")
+    runtimeOnly("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks.withType<Test> {

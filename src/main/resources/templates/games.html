@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments :: menu"></div>
-<h1 th:text="${some}">!</h1>
+<h1>Games</h1>
 <table class="table">
     <thead>
     <tr>
@@ -16,7 +16,9 @@
     </thead>
     <tbody>
     <tr th:each="game: ${games}">
-        <td th:text="${game.title}"></td>
+        <td>
+            <a th:text="${game.title}" th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary"></a>
+        </td>
         <td th:text="${game.price}"></td>
         <td th:text="${game.releaseDate}"></td>
 <!--        <td th:text="${game.stores}"></td>-->

@@ -18,7 +18,11 @@ public class GameService implements GameServiceInt {
         return gameRepository.getGames();
     }
 
+    public Game getGame(Long id){
+        return gameRepository.getGame(id);
+    }
+
     public void addGame(Game game){
-        gameRepository.addGame(game);
+        gameRepository.save(game);
     }
 }

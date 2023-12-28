@@ -1,17 +1,45 @@
 package com.ross.gamis.store;
 
 import com.ross.gamis.game.Game;
+import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
+@Entity(name="Store")
+@Table(name="store")
 public class Store {
-    private int id;
+    @Id
+    @SequenceGenerator(
+            name = "date_sequence",
+            sequenceName = "data_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "data_sequence"
+    )
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
     private String name;
-    private boolean isLibraryOnline;
+    private Boolean isLibraryOnline;
     private String linkToLibrary;
-    private List<Game> games;
+//    private List<Game> games;
 
-    public Store(int id, String name, boolean isLibraryOnline, String linkToLibrary) {
+    @ManyToMany
+    @JoinTable(
+            name = "games_stores",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id"))
+    private Set<Game> games;
+
+    public Store() {
+    }
+
+    public Store(Long id, String name, boolean isLibraryOnline, String linkToLibrary) {
         this.id = id;
         this.name = name;
         this.isLibraryOnline = isLibraryOnline;
@@ -24,7 +52,15 @@ public class Store {
         this.linkToLibrary = linkToLibrary;
     }
 
-    public int getId() {
+    public Store(Long id, String name, Boolean isLibraryOnline, String linkToLibrary, Set<Game> games) {
+        this.id = id;
+        this.name = name;
+        this.isLibraryOnline = isLibraryOnline;
+        this.linkToLibrary = linkToLibrary;
+        this.games = games;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -32,7 +68,7 @@ public class Store {
         return name;
     }
 
-    public boolean isLibraryOnline() {
+    public Boolean isLibraryOnline() {
         return isLibraryOnline;
     }
 
@@ -40,7 +76,11 @@ public class Store {
         return linkToLibrary;
     }
 
-    public void setId(int id) {
+    public Set<Game> getGames() {
+        return games;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,7 +88,7 @@ public class Store {
         this.name = name;
     }
 
-    public void setLibraryOnline(boolean libraryOnline) {
+    public void setLibraryOnline(Boolean libraryOnline) {
         isLibraryOnline = libraryOnline;
     }
 
@@ -56,7 +96,7 @@ public class Store {
         this.linkToLibrary = linkToLibrary;
     }
 
-    public void setGames(List<Game> games) {
+    public void setGames(Set<Game> games) {
         this.games = games;
     }
 

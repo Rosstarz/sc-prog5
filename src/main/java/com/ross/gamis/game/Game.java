@@ -3,20 +3,41 @@ package com.ross.gamis.game;
 
 import com.ross.gamis.developer.Developer;
 import com.ross.gamis.store.Store;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
+@Entity(name="Game")
+@Table(name="game")
 public class Game {
-    private int id;
+    @Id
+    @SequenceGenerator(
+            name = "date_sequence",
+            sequenceName = "data_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "data_sequence"
+    )
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
     private String title;
     private LocalDate releaseDate;
-    private double price;
-    private int developerId;
-    private boolean owned;
-    private int ownedStoreId;
-    private Developer developer;
-    private List<Store> stores;
+    private Double price;
+    private Long developerId;
+    private Boolean owned;
+    private Long ownedStoreId;
+//    private Developer developer;
+//    private List<Store> stores;
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Store> stores;
 
     public Game() {
     }
@@ -26,7 +47,7 @@ public class Game {
         this.title = title;
     }
 
-    public Game(int id, String title, LocalDate releaseDate, double price, int developerId, boolean owned, int ownedStoreId) {
+    public Game(Long id, String title, LocalDate releaseDate, Double price, Long developerId, Boolean owned, Long ownedStoreId) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -36,7 +57,7 @@ public class Game {
         this.ownedStoreId = ownedStoreId;
     }
 
-    public Game(String title, LocalDate releaseDate, double price, int developerId, boolean owned, int ownedStoreId) {
+    public Game(String title, LocalDate releaseDate, Double price, Long developerId, Boolean owned, Long ownedStoreId) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.price = price;
@@ -45,18 +66,29 @@ public class Game {
         this.ownedStoreId = ownedStoreId;
     }
 
-    public Game(String title, LocalDate releaseDate, double price, boolean owned) {
+    public Game(String title, LocalDate releaseDate, Double price, Boolean owned) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.price = price;
         this.owned = owned;
     }
 
+    public Game(Long id, String title, LocalDate releaseDate, Double price, Long developerId, Boolean owned, Long ownedStoreId, Set<Store> stores) {
+        this.id = id;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.price = price;
+        this.developerId = developerId;
+        this.owned = owned;
+        this.ownedStoreId = ownedStoreId;
+        this.stores = stores;
+    }
+
     public static LocalDate parseDate(String date) {
         return LocalDate.parse(date);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,31 +100,27 @@ public class Game {
         return releaseDate;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public int getDeveloperId() {
+    public Long getDeveloperId() {
         return developerId;
     }
 
-    public boolean isOwned() {
+    public Boolean getOwned() {
         return owned;
     }
 
-    public int getOwnedStoreId() {
+    public Long getOwnedStoreId() {
         return ownedStoreId;
     }
 
-    public Developer getDeveloper() {
-        return developer;
-    }
-
-    public List<Store> getStores() {
+    public Set<Store> getStores() {
         return stores;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -104,27 +132,23 @@ public class Game {
         this.releaseDate = releaseDate;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public void setDeveloperId(int developerId) {
+    public void setDeveloperId(Long developerId) {
         this.developerId = developerId;
     }
 
-    public void setOwned(boolean owned) {
+    public void setOwned(Boolean owned) {
         this.owned = owned;
     }
 
-    public void setOwnedStoreId(int ownedStoreId) {
+    public void setOwnedStoreId(Long ownedStoreId) {
         this.ownedStoreId = ownedStoreId;
     }
 
-    public void setDeveloper(Developer developer){
-        this.developer = developer;
-    }
-
-    public void setStores(List<Store> stores){
+    public void setStores(Set<Store> stores) {
         this.stores = stores;
     }
 
@@ -138,7 +162,6 @@ public class Game {
                 ", developerId=" + developerId +
                 ", owned=" + owned +
                 ", ownedStoreId=" + ownedStoreId +
-                ", developer=" + developer +
                 ", stores=" + stores +
                 '}';
     }
