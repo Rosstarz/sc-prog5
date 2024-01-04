@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name="Game")
-@Table(name="game")
+@Table(name="games")
 public class Game {
     @Id
     @SequenceGenerator(

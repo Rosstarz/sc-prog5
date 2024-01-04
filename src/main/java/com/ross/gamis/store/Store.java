@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name="Store")
-@Table(name="store")
+@Table(name="stores")
 public class Store {
     @Id
     @SequenceGenerator(

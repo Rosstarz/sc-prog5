@@ -1,9 +1,8 @@
-package com.ross.gamis.util;
+package com.ross.gamis.data;
 
 import com.ross.gamis.game.Game;
 import com.ross.gamis.store.Store;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -70,5 +69,9 @@ public class DataFactory {
 
     public static void addGame(Game game){
         games.add(game);
+    }
+
+    public static List<Store> getStores() {
+        return stores;
     }
 }
