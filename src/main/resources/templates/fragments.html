@@ -8,18 +8,18 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <link th:href="@{/styles/main.css}" rel="stylesheet" />
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">-->
-<!--  </script>-->
-<!--  <script type="text/javascript">-->
-<!--    $(document).ready(function() {-->
-<!--      $("#locales").change(function () {-->
-<!--        const selectedOption = $('#locales').val();-->
-<!--        if (selectedOption !== ''){-->
-<!--          window.location.replace('international?lang=' + selectedOption);-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  </script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#locales").change(function () {
+        const selectedOption = $('#locales').val();
+        if (selectedOption !== ''){
+          window.location.replace('?lang=' + selectedOption);
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -33,21 +33,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/games">Games</a>
+            <a class="nav-link" href="/games" th:text="#{lang.games}"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/stores">Stores</a>
+            <a class="nav-link" href="/stores" th:text="#{lang.stores}"></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Add
-            </a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{lang.add}"></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/games/add">Game</a></li>
-              <li><a class="dropdown-item" href="/stores/add">Store</a></li>
+              <li><a class="dropdown-item" href="/games/add" th:text="#{lang.game}"></a></li>
+              <li><a class="dropdown-item" href="/stores/add" th:text="#{lang.store}"></a></li>
             </ul>
           </li>
         </ul>
+        <div class="lang-select">
+        <select class="form-select form-select-sm" aria-label="Language" id="locales">
+          <option selected th:text="#{lang.select}"></option>
+          <option value="en" th:text="#{lang.eng}"></option>
+          <option value="cz" th:text="#{lang.cze}"></option>
+        </select>
+        </div>
       </div>
     </div>
   </nav>
@@ -55,7 +60,7 @@
 
 <div th:fragment="footer">
   <footer>
-    <p>Copyright &copy; 2024 All Rights Reserved.</p>
+    <p th:text="#{footer.rights}"></p>
   </footer>
 </div>
 
