@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head th:replace="~{fragments :: html_head}"></head>
+<head th:replace="~{fragments :: html_head}"></head>
 <body>
 <div class="container">
     <div th:replace="~{fragments :: menu}"></div>
-    Yo
-    <h1 th:text="${some}">!</h1>
+    <h1 th:text="#{lang.greeting}"></h1>
     <div th:replace="~{fragments :: footer}"></div>
 </div>
 </body>
