@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="fragments :: html_head"></head>
+<head th:replace="~{fragments :: html_head}"></head>
 <body>
 <div class="container">
-    <div th:replace="fragments :: menu"></div>
+    <div th:replace="~{fragments :: menu}"></div>
     <div>
         <h1 th:text="${game.title}"></h1>
         <p th:text="${game.price}"></p>
         <p th:text="${game.releaseDate}"></p>
     </div>
-    <div th:replace="fragments :: footer"></div>
+    <div th:replace="~{fragments :: footer}"></div>
 </div>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.ross.gamis.store;
 
-import com.ross.gamis.game.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,19 +18,19 @@ public class StoreController {
     @GetMapping
     public String showStores(Model model){
         model.addAttribute("stores",storeService.getStores());
-        return "stores";
+        return "stores/stores";
     }
 
     @GetMapping("/{id}")
     public String showStore(Model model, @PathVariable(value = "id") Long id){
         model.addAttribute("store",storeService.getStore(id));
-        return "store";
+        return "stores/store";
     }
 
     @GetMapping("/add")
     public String addStore(Model model){
         model.addAttribute("addStoreForm", new Store());
-        return "addstore";
+        return "stores/add";
     }
 
     @PostMapping("register")
@@ -39,7 +38,7 @@ public class StoreController {
         storeService.addStore(store);
         model.addAttribute("addStoreForm", new Store());
         model.addAttribute("message", "Successfully added");
-        return "addstore";
+        return "stores/add";
     }
 
 }

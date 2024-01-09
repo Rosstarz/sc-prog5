@@ -152,6 +152,17 @@ public class Game {
         this.stores = stores;
     }
 
+//    public void setStores(String[] stores) {
+//        for(String store : stores){
+//
+//        }
+//        this.stores = stores;
+//    }
+
+    public void addStore(Store store){
+        this.stores.add(store);
+    }
+
     @Override
     public String toString() {
         return "Game{" +
