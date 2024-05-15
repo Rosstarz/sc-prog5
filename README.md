@@ -1,14 +1,19 @@
 ## Welcome to Ross' Prog3 Repo
 
-#### Maintainer:
+
+#### Information:
 - First Name: **Rostislav**
 - Last Name: **Rucka**
+- Email: **rostislav.rucka at student.kdg.be**
+- ID: **TBA**
+- Year: 2023/24
 - Class: **ACS202**
+- Course: **Programming 5**
 
+#### Domain Entities
+- Developer
+- Game
+- Store
 
-#### Folder Info:
-I have opted for a project structure by feature for the following reasons:
-- Find a class to be modified is easy.
-- By deleting a particular sub-package, all the classes related to a certain feature can be deleted.
-- Testing and Refactoring is easy.
-- Features can be shipped separately.
+#### Build and run instructions
+TBA

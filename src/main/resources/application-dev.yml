@@ -1,0 +1,41 @@
+server:
+  port: 8080
+  error:
+    whitelabel.enabled: true
+    include-message: always
+
+spring:
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/, classpath:/static/
+      cache:
+        period: 0
+  sql:
+    init:
+      mode: always
+  devtools:
+    restart:
+      enabled: "true"
+      poll-interval: "2s"
+      quiet-period: "1s"
+      additional-paths:
+        - src/main/
+    livereload:
+      enabled: "true"
+  thymeleaf:
+    cache: "false"
+    prefix: file:src/main/resources/templates/
+  datasource:
+    password: "Student1234"
+    username: "postgres"
+    url: "jdbc:postgresql://prog5-prog5-db-1:5432/prog"
+
+logging:
+  level:
+    root: WARN
+    com:
+      ross:
+        integration4: DEBUG
+    org:
+      hibernate: 
+        SQL: DEBUG
