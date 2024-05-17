@@ -25,19 +25,19 @@ public class Store {
     public Store() {
     }
 
-    public Store(long id, String name, Boolean isLibraryOnline, String linkToLibrary) {
-        this.id = id;
-        this.name = name;
-        this.isLibraryOnline = isLibraryOnline;
-        this.linkToLibrary = linkToLibrary;
-    }
-
     public Store(String name, Boolean isLibraryOnline) {
         this.name = name;
         this.isLibraryOnline = isLibraryOnline;
     }
 
     public Store(String name, Boolean isLibraryOnline, String linkToLibrary) {
+        this.name = name;
+        this.isLibraryOnline = isLibraryOnline;
+        this.linkToLibrary = linkToLibrary;
+    }
+
+    public Store(long id, String name, Boolean isLibraryOnline, String linkToLibrary) {
+        this.id = id;
         this.name = name;
         this.isLibraryOnline = isLibraryOnline;
         this.linkToLibrary = linkToLibrary;
@@ -58,6 +58,10 @@ public class Store {
     public String getName() {
         return name;
     }
+    
+    public Boolean getIsLibraryOnline() {
+        return isLibraryOnline;
+    }
 
     public String getLinkToLibrary() {
         return linkToLibrary;
@@ -75,20 +79,16 @@ public class Store {
         this.name = name;
     }
 
+    public void setIsLibraryOnline(Boolean isLibraryOnline) {
+        this.isLibraryOnline = isLibraryOnline;
+    }
+
     public void setLinkToLibrary(String linkToLibrary) {
         this.linkToLibrary = linkToLibrary;
     }
 
     public void setGames(List<GameStore> games) {
         this.games = games;
-    }
-
-    public Boolean isLibraryOnline() {
-        return isLibraryOnline;
-    }
-
-    public void setLibraryOnline(Boolean isLibraryOnline) {
-        this.isLibraryOnline = isLibraryOnline;
     }
 
     // @Override

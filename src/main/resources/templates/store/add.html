@@ -10,18 +10,24 @@
             <input type="text" th:field="*{name}" class="form-control" id="title" required>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" value="false" th:field="*{isLibraryOnline}" class="form-check-input" id="online">
-            <label class="form-check-label" for="online" th:text="#{lang.lib_viewable_online}"></label>
+            <input type="checkbox" th:field="*{isLibraryOnline}" th:checked="*{isLibraryOnline}" class="form-check-input" id="isLibraryOnline">
+            <label class="form-check-label" for="isLibraryOnline" th:text="#{lang.lib_viewable_online}"></label>
         </div>
         <div class="mb-3">
-            <label for="link" class="form-label" th:text="#{lang.link_to_lib}"></label>
-            <input type="text" th:field="*{linkToLibrary}" class="form-control" id="link">
+            <label for="linkToLibrary" class="form-label" th:text="#{lang.link_to_lib}"></label>
+            <input type="text" th:field="*{linkToLibrary}" class="form-control" id="linkToLibrary">
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{lang.submit}"></button>
     </form>
     <br />
-    <div>
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show container mt-3" role="alert">
         <p th:text="${message}"></p>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+    </div>
+    
+    <div th:if="${message2}" class="alert alert-danger alert-dismissible fade show container mt-3" role="alert">
+        <p th:text="${message2}"></p>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
     </div>
     <div th:replace="~{fragments :: footer}"></div>
 </div>

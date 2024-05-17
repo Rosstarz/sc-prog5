@@ -3,10 +3,13 @@ package com.ross.gamis.controller.mvc;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.ross.gamis.domain.Store;
 import com.ross.gamis.service.StoreService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/stores")
@@ -37,11 +40,15 @@ public class StoreController {
     }
 
     @PostMapping("register")
-    public String registerStore(@ModelAttribute Store store, Model model){
+    public String registerStore(@Valid @ModelAttribute Store store, BindingResult errors, Model model){
+        if (errors.hasErrors()) {
+            model.addAttribute("addStoreForm", new Store());
+            model.addAttribute("message2", errors.getAllErrors().stream().findFirst().orElse(null).getDefaultMessage());
+            return "store/add";
+        }
         storeService.addStore(store);
         model.addAttribute("addStoreForm", new Store());
         model.addAttribute("message", "Successfully added");
         return "store/add";
     }
-
 }
