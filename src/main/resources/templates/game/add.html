@@ -10,13 +10,13 @@
             <input type="text" th:field="*{title}" class="form-control" id="title" required>
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label" th:text="#{lang.price}"></label>
-            <input type="text" th:field="*{price}" class="form-control" id="price">
+            <label for="description" class="form-label" th:text="#{lang.description}"></label>
+            <input type="text" th:field="*{description}" class="form-control" id="description">
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="releaseDate" class="form-label" th:text="#{lang.release_date}"></label>
             <input type="date" th:field="*{releaseDate}" class="form-control" id="releaseDate">
-        </div>
+        </div> -->
 <!--        <div class="mb-3">-->
 <!--            <label for="storeSelect" class="form-label" th:text="#{lang.store}"></label>-->
 <!--            <ul id="storeSelect">-->
@@ -48,17 +48,21 @@
 <!--            </ul>-->
 <!--        </div>-->
 
-        <div class="mb-3 form-check">
+        <!-- <div class="mb-3 form-check">
             <input type="checkbox" th:field="*{owned}" class="form-check-input" id="owned">
             <label class="form-check-label" for="owned" th:text="#{lang.owned}"></label>
-        </div>
+        </div> -->
+        
+        <!-- <div id="questionContainer"></div>
+        <button type="button" class="btn btn-primary" id="addQuestionBtn">Add Question</button> -->
         <button type="submit" class="btn btn-primary" th:text="#{lang.submit}"></button>
     </form>
     <br/>
-    <div>
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show container mt-3" role="alert">
         <p th:text="${message}"></p>
-        <!--        <p th:text="${allStores}"></p>-->
-        <!--        <p th:text="#{${message}}"></p>-->
+    </div>
+    <div th:if="${message2}" class="alert alert-danger alert-dismissible fade show container mt-3" role="alert">
+        <p th:text="${message2}"></p>
     </div>
     <div th:replace="~{fragments :: footer}"></div>
 </div>

@@ -16,7 +16,8 @@ public class Game {
     @Column
     private String description;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    // @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "developer_id")
     private Developer developer;
 
@@ -28,6 +29,12 @@ public class Game {
 
     public Game(String title, Developer developer) {
         this.title = title;
+        this.developer = developer;
+    }
+
+    public Game(String title, String description, Developer developer) {
+        this.title = title;
+        this.description = description;
         this.developer = developer;
     }
 

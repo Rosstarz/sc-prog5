@@ -3,12 +3,15 @@ package com.ross.gamis.controller.mvc;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.domain.Store;
 import com.ross.gamis.service.GameService;
 import com.ross.gamis.service.StoreService;
+
+import jakarta.validation.Valid;
 
 import java.util.*;
 
@@ -39,19 +42,7 @@ public class GameController {
     @GetMapping("/add")
     public String showAddGame(Model model){
         Game game = new Game();
-//        Set<Store> stores = new HashSet<>();
-//        stores.add(new Store());
-//        stores.add(new Store());
-//        stores.add(new Store());
-//        game.setStores(stores);
-//        game.addStore(new Store());
-//        game.addStore(new Store());
-//        game.addStore(new Store());
-//        game.addStore(new Store());
         model.addAttribute("addGameForm", game);
-//        String[] storesSelected = new String[storeService.getStores().size()];
-//        Set<Store> storesSelected = new Game().getStores();
-//        model.addAttribute("storesSelected", storesSelected);
         return "game/add";
     }
 
@@ -61,12 +52,15 @@ public class GameController {
     }
 
     @PostMapping("register")
-    public String registerNewGame(@ModelAttribute Game game, Model model){
-//        game.setStores(storesSelected);
-//        gameService.addGame(game);
+    public String registerNewGame(@Valid @ModelAttribute Game game, BindingResult errors, Model model){
         model.addAttribute("addGameForm", new Game());
+        if (errors.hasErrors()) {
+            model.addAttribute("message2", errors.getAllErrors().stream().findFirst().orElse(null).getDefaultMessage());
+            return "game/add";
+        }
+        gameService.addGame(game);
         model.addAttribute("message", "Successfully added");
-        return "redirect:game/add";
+        return "game/add";
     }
 
 }

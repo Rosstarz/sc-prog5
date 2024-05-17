@@ -41,13 +41,12 @@ public class StoreController {
 
     @PostMapping("register")
     public String registerStore(@Valid @ModelAttribute Store store, BindingResult errors, Model model){
+        model.addAttribute("addStoreForm", new Store());
         if (errors.hasErrors()) {
-            model.addAttribute("addStoreForm", new Store());
             model.addAttribute("message2", errors.getAllErrors().stream().findFirst().orElse(null).getDefaultMessage());
             return "store/add";
         }
         storeService.addStore(store);
-        model.addAttribute("addStoreForm", new Store());
         model.addAttribute("message", "Successfully added");
         return "store/add";
     }

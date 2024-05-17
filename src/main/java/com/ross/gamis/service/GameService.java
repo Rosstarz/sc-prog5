@@ -10,7 +10,7 @@ import com.ross.gamis.repository.GameRepository;
 import java.util.List;
 
 @Service
-@Transactional
+// @Transactional
 public class GameService {
     private final GameRepository gameRepository;
 
