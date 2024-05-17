@@ -8,10 +8,10 @@ import com.ross.gamis.service.GameService;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-
-@RestController("/api/games")
+@RestController
+@RequestMapping("/api/games")
 public class GameApiController {
     private final GameService gameService;
 

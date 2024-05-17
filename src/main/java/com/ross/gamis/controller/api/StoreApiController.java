@@ -6,6 +6,7 @@
 
 
 // @RestController("/api/stores")
+// @RestController("/api/stores")
 // public class StoreApiController {
 //     private final StoreService storeService;
 
