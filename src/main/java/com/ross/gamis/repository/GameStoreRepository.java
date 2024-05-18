@@ -8,4 +8,5 @@ import com.ross.gamis.domain.GameStore;
 
 public interface GameStoreRepository extends JpaRepository<GameStore, Long>{
     Optional<GameStore> findByGameIdAndStoreId(long gameId, long storeId);
+
 }

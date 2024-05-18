@@ -34,8 +34,8 @@ public class GameStore {
     @Column(nullable = false)
     private Double price;
 
-    @Column(name = "is_owned")
-    private boolean isOwned;
+    // @Column(name = "is_owned")
+    // private boolean isOwned;
 
     public GameStore() {
     }
@@ -47,21 +47,21 @@ public class GameStore {
         this.price = price;
     }
 
-    public GameStore(Game game, Store store, LocalDateTime releaseDate, Double price, boolean isOwned) {
-        this.game = game;
-        this.store = store;
-        this.releaseDate = releaseDate;
-        this.price = price;
-        this.isOwned = isOwned;
-    }
+    // public GameStore(Game game, Store store, LocalDateTime releaseDate, Double price, boolean isOwned) {
+    //     this.game = game;
+    //     this.store = store;
+    //     this.releaseDate = releaseDate;
+    //     this.price = price;
+    //     this.isOwned = isOwned;
+    // }
 
-    public GameStore(long id, Game game, Store store, LocalDateTime releaseDate, Double price, boolean isOwned) {
+    public GameStore(long id, Game game, Store store, LocalDateTime releaseDate, Double price) {
         this.id = id;
         this.game = game;
         this.store = store;
         this.releaseDate = releaseDate;
         this.price = price;
-        this.isOwned = isOwned;
+        // this.isOwned = isOwned;
     }
 
     public long getId() {
@@ -104,13 +104,13 @@ public class GameStore {
         this.price = price;
     }
 
-    public boolean isOwned() {
-        return isOwned;
-    }
+    // public boolean isOwned() {
+    //     return isOwned;
+    // }
 
-    public void setOwned(boolean isOwned) {
-        this.isOwned = isOwned;
-    }
+    // public void setOwned(boolean isOwned) {
+    //     this.isOwned = isOwned;
+    // }
 
     
 }

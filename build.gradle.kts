@@ -29,6 +29,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 //    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     // testImplementation("io.projectreactor:reactor-test")
+    implementation("org.modelmapper:modelmapper:3.2.0")
 
     // Web
     implementation("org.springframework.boot:spring-boot-starter-web")

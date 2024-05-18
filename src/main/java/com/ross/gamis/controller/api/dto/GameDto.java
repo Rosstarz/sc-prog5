@@ -1,60 +1,82 @@
-// package com.ross.gamis.controller.api.dto;
+package com.ross.gamis.controller.api.dto;
 
-// public class GameDto {
-//     private long id;
-//     private String title;
-//     private String description;
-//     private long developerId;
-//     private List<Long> storeIds;
+import java.util.List;
 
-//     public GameDto() {
-//     }
+import com.ross.gamis.domain.GameStore;
 
-//     public GameDto(long id, String title, String description, long developerId, List<Long> storeIds) {
-//         this.id = id;
-//         this.title = title;
-//         this.description = description;
-//         this.developerId = developerId;
-//         this.storeIds = storeIds;
-//     }
+public class GameDto {
+    private long id;
+    private String title;
+    private String description;
+    private DeveloperDto developer;
+    private List<GameStoreDto> stores;
 
-//     public long getId() {
-//         return id;
-//     }
+    public GameDto() {
+    }
 
-//     public void setId(long id) {
-//         this.id = id;
-//     }
+    public GameDto(long id, String title, String description, DeveloperDto developer) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.developer = developer;
+    }
 
-//     public String getTitle() {
-//         return title;
-//     }
 
-//     public void setTitle(String title) {
-//         this.title = title;
-//     }
 
-//     public String getDescription() {
-//         return description;
-//     }
+    public GameDto(long id, String title, String description, List<GameStoreDto> stores) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.stores = stores;
+    }
 
-//     public void setDescription(String description) {
-//         this.description = description;
-//     }
 
-//     public long getDeveloperId() {
-//         return developerId;
-//     }
 
-//     public void setDeveloperId(long developerId) {
-//         this.developerId = developerId;
-//     }
+    public GameDto(long id, String title, String description, DeveloperDto developer, List<GameStoreDto> stores) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.developer = developer;
+        this.stores = stores;
+    }
 
-//     public List<Long> getStoreIds() {
-//         return storeIds;
-//     }
+    public long getId() {
+        return id;
+    }
 
-//     public void setStoreIds(List<Long> storeIds) {
-//         this.storeIds = storeIds;
-//     }
-// }
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public DeveloperDto getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(DeveloperDto developer) {
+        this.developer = developer;
+    }
+
+    public List<GameStoreDto> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<GameStoreDto> stores) {
+        this.stores = stores;
+    }
+}
