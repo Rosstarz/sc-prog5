@@ -4,6 +4,7 @@ package com.ross.gamis.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ross.gamis.controller.api.dto.game.in.GameDtoIn;
 import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.repository.GameRepository;
@@ -27,7 +28,7 @@ public class GameService {
 
     // @Transactional
     public List<Game> getGames(){
-        return gameRepository.getGames();
+        return gameRepository.findAllFetchedDevs();
     }
 
     public List<Game> getGamesFetched(){
@@ -36,6 +37,10 @@ public class GameService {
 
     public Game getGame(Long id){
         return gameRepository.getGame(id);
+    }
+
+    public Game getGameFetched(Long id){
+        return gameRepository.getGameFetched(id).orElse(null);
     }
 
     public void addGame(Game game){
@@ -60,6 +65,19 @@ public class GameService {
             gameStoreRepository.deleteAll(game.getStores());
             gameRepository.deleteAllById(id);
             return true;
+        }
+    }
+
+    public Game updateGame(Long id, GameDtoIn game){
+        Game gameToUpdate = gameRepository.getGameFetched(id).orElse(null);
+        if (gameToUpdate == null) {
+            return null;
+        } else {
+            gameToUpdate.setTitle(game.getTitle());
+            gameToUpdate.setDescription(game.getDescription());
+            gameToUpdate.setDeveloper(developerService.getDeveloperById(game.getDeveloperId()));
+            gameRepository.save(gameToUpdate);
+            return gameToUpdate;
         }
     }
 }

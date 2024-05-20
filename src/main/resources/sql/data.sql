@@ -5,12 +5,12 @@ VALUES
     ('Forgotten Empires', '2013-08-24', 'NETHERLANDS'),
     ('Santa Monica Studio', '1999-08-24', 'USA');
 
-INSERT INTO game (title, developer_id)
+INSERT INTO game (title, developer_id, description)
 VALUES
-    ('Dota 2', 1),
-    ('Counter-Strike: Global Offensive', 2),
-    ('Age of Empires II: Definitive Edition', 3),
-    ('God of War', 4);
+    ('Counter-Strike: Global Offensive', '1', 'Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago.'),
+    ('Counter-Strike: Source', '1', 'Counter-Strike: Source blends Counter-Strike''s award-winning teamplay action with the advanced technology of Source technology.'),
+    ('Age of Empires II: Definitive Edition', '3', 'Age of Empires II: Definitive Edition celebrates the 20th anniversary of one of the most popular strategy games ever with stunning 4K Ultra HD graphics, a new and fully remastered soundtrack, and brand-new content.'),
+    ('God of War', '4', 'His vengeance against the gods of Olympus far behind him, Kratos now lives in the lands of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive… and teach his son to do the same.');
 
 INSERT INTO store (name, is_library_online)
 VALUES

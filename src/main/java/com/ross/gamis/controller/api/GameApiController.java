@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.modelmapper.ModelMapper;
@@ -52,6 +53,31 @@ public class GameApiController {
             logger.debug("GameDto: {}", gameDto.toString());
         }
         return new ResponseEntity<>(gameDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GameDtoOut> getGame(@PathVariable("id") Long id) {
+        Game game = gameService.getGameFetched(id);
+        if(game != null){
+            return new ResponseEntity<>(
+                gameConverter.convertToDto(game),
+                HttpStatus.OK
+            );
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<GameDtoOut> updateGame(@PathVariable("id") Long id, @RequestBody @Valid GameDtoIn gameDto) {
+        logger.debug("GameDtoPatch: {}", gameDto.toString());
+        Game updatedGame = gameService.updateGame(id,gameDto);
+        if(updatedGame != null){
+            return new ResponseEntity<>(
+                gameConverter.convertToDto(updatedGame),
+                HttpStatus.CREATED
+            );
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")

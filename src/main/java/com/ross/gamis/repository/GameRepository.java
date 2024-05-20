@@ -14,15 +14,21 @@ import java.util.Optional;
 public interface GameRepository extends JpaRepository<Game,Long> {
     @Query("SELECT g FROM Game g")
     List<Game> getGames();
+    
+    @Query("SELECT g FROM Game g JOIN FETCH g.developer")
+    List<Game> findAllFetchedDevs();
 
     @Query("SELECT g FROM Game g JOIN FETCH g.developer LEFT OUTER JOIN FETCH g.stores")
     List<Game> findAllFetched();
 
     @Query("SELECT g FROM Game g WHERE g.id = :id")
     Game getGame(Long id);
-    
+
+    @Query("SELECT g FROM Game g JOIN FETCH g.developer LEFT OUTER JOIN FETCH g.stores WHERE g.id = :id")
+    Optional<Game> getGameFetched(Long id);
+
     // Optional<Game> findById(Long id);
-    @NonNull Optional<Game> findById(@NonNull Long id);
+    // @NonNull Optional<Game> findById(@NonNull Long id);
 
     void deleteAllById(Long id);
 

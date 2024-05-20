@@ -44,3 +44,35 @@ Content-Type: application/json
     "description": "Team",
     "developerId": 1
 }
+
+### PATCH Update game, expected 201
+PATCH http://localhost:8080/api/games/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Counter-Strike 2",
+    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
+    "developerId": "2"
+}
+
+### PATCH Update game, expected 404
+PATCH http://localhost:8080/api/games/1239
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Counter-Strike 2",
+    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
+    "developerId": "2"
+}
+
+# TODO validate
+### PATCH Update game, expected ?
+PATCH http://localhost:8080/api/games/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Counter-Strike 2"
+}

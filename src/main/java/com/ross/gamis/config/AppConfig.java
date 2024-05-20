@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ross.gamis.converter.DeveloperConverter;
 import com.ross.gamis.converter.GameConverter;
 import com.ross.gamis.converter.StoreConverter;
 import com.ross.gamis.service.StoreService;
@@ -29,5 +30,10 @@ public class AppConfig {
     @Bean
     public StoreConverter storeConverter() {
         return new StoreConverter();
+    }
+
+    @Bean
+    public DeveloperConverter developerConverter() {
+        return new DeveloperConverter();
     }
 }

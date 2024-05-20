@@ -22,4 +22,8 @@ public class DeveloperService {
     public List<Developer> getDevelopers() {
         return developerRepository.getDevelopers();
     }
+
+    public List<Developer> getDevelopersFetched() {
+        return developerRepository.getDevelopersFetched();
+    }
 }

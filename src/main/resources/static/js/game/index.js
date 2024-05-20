@@ -41,12 +41,17 @@ function addGameToTable(game) {
     // Todo: show new game in table
     const tableRow = document.createElement("tr");
     tableRow.id = `game_${game.id}`;
+    
     tableRow.innerHTML = `
-        <td>${game.title}</td>
-        <td>${game.description}</td>
-        <td></td>
-        <td><a href="/game?id=${game.id}">Details</a></td>
-        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+        <tr id="'game_' + ${game.id}">
+            <td>${game.title}</td>
+            <td>${game.developer.name}</td>
+            <td>${game.description}</td>
+            <td>
+                <a href="/games/${game.id}" class="btn btn-primary btn-sm">Details</a>
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </td>
+        </tr>
     `
     gamesTableBody.appendChild(tableRow);
 

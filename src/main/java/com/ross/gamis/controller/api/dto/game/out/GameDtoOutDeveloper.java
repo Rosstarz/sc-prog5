@@ -1,20 +1,18 @@
 package com.ross.gamis.controller.api.dto.game.out;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import com.ross.gamis.domain.Country;
+// import java.util.List;
 
 public class GameDtoOutDeveloper {
     long developerId;
     String name;
     LocalDate founded;
-    Country country;
+    String country;
 
     public GameDtoOutDeveloper() {
     }
 
-    public GameDtoOutDeveloper(long developerId, String name, LocalDate founded, Country country) {
+    public GameDtoOutDeveloper(long developerId, String name, LocalDate founded, String country) {
         this.developerId = developerId;
         this.name = name;
         this.founded = founded;
@@ -45,11 +43,11 @@ public class GameDtoOutDeveloper {
         this.founded = founded;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 }

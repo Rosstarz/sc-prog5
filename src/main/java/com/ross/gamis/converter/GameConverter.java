@@ -44,6 +44,6 @@ public class GameConverter {
     
     private GameDtoOutDeveloper convertGameDeveloperToDto(Developer developer) {
         return new GameDtoOutDeveloper(developer.getId(), developer.getName(),
-        developer.getFounded(), developer.getCountry());
+        developer.getFounded(), developer.getCountry().getName());
     }
 }

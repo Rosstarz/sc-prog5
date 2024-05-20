@@ -1,9 +1,17 @@
-footer p {
+/* footer p {
     padding: 40px 0;
     text-align: center;
+} */
+/* .lang-select {
+    width: 30px;
+    /* text-align: right;
+} */
+
+.responsive-image {
+    width: 100%;
+    max-width: 400px;
 }
 
-.lang-select {
-    width: 30px;
-    /* text-align: right; */
+.description-textarea {
+    height: 120px;
 }

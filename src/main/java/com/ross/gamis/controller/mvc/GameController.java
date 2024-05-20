@@ -39,8 +39,9 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public String showGame(Model model, @PathVariable(value = "id") Long id){
-        model.addAttribute("game",gameService.getGame(id));
+    // public String showGame(Model model, @PathVariable(value = "id") Long id){
+    public String showGame(){
+        // model.addAttribute("game",gameService.getGame(id));
         return "game/game";
     }
 

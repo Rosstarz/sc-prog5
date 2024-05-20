@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments :: html_head}"></head>
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+    <script src="/js/game/game.js" type="module"></script>
+</head>
 <body>
+<div th:replace="~{fragments :: menu}"></div>
 <div class="container">
-    <div th:replace="~{fragments :: menu}"></div>
     <div>
-        <h1 th:text="${game.title}"></h1>
-        <p th:text="${game.description}"></p>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title" id="game-title"></h5>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModalCenter" th:text="#{lang.edit}"></button>
+                </div>
+                <h6 class="card-subtitle mb-2 text-body-secondary" id="developer-title"></h6>
+                <!-- TODO link to developer -->
+                <p class="card-text" id="game-description"></p>
+            </div>
+            <ul class="list-group list-group-flush" id="store-list">
+            </ul>
+        </div>
     </div>
-    <div th:replace="~{fragments :: footer}"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalCenterTitle" th:text="#{lang.edit_game}"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="edit-game-title" class="form-label" th:text="#{lang.title}"></label>
+                            <input type="text" id="edit-game-title" class="form-control"  required value="ahoeir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-game-description" class="form-label" th:text="#{lang.description}"></label>
+                            <textarea type="text" id="edit-game-description" class="form-control description-textarea"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="select-developer" class="form-label" th:text="#{lang.developer}"></label>
+                            <select class="form-select" aria-label="Game Developer select" id="select-developer" required>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"data-bs-dismiss="modal" th:text="#{lang.cancel}"></button>
+                    <button id="addButton" type="button" class="btn btn-primary" th:text="#{lang.save}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>
