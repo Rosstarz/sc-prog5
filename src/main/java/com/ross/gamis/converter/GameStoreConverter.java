@@ -1,6 +1,6 @@
 package com.ross.gamis.converter;
 
-import com.ross.gamis.controller.api.dto.GameStoreDto;
+import com.ross.gamis.controller.api.dto.game.out.GameDtoOutGameStore;
 import com.ross.gamis.domain.GameStore;
 
 public class GameStoreConverter {

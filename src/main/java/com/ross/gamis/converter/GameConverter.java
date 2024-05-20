@@ -3,12 +3,11 @@ package com.ross.gamis.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.ross.gamis.controller.api.dto.DeveloperDto;
-import com.ross.gamis.controller.api.dto.GameDto;
-import com.ross.gamis.controller.api.dto.GameStoreDto;
-import com.ross.gamis.controller.api.dto.StoreDto;
+import com.ross.gamis.controller.api.dto.game.out.GameDtoOut;
+import com.ross.gamis.controller.api.dto.game.out.GameDtoOutDeveloper;
+import com.ross.gamis.controller.api.dto.game.out.GameDtoOutGameStore;
+import com.ross.gamis.controller.api.dto.game.out.GameDtoOutStore;
+import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.domain.GameStore;
 import com.ross.gamis.domain.Store;
@@ -21,24 +20,30 @@ public class GameConverter {
         this.storeService = storeService;
     }
 
-    public GameDto convertToDto(Game game) {
-        GameDto gameDto = new GameDto();
+    public GameDtoOut convertToDto(Game game) {
+        GameDtoOut gameDto = new GameDtoOut();
         gameDto.setId(game.getId());
         gameDto.setTitle(game.getTitle());
         gameDto.setDescription(game.getDescription());
-        gameDto.setDeveloper(new DeveloperDto(game.getDeveloper().getId(), game.getDeveloper().getName(),
-                game.getDeveloper().getFounded(), game.getDeveloper().getCountry()));
-        List<GameStoreDto> gameStoreDtos = new ArrayList<>();
-        for (GameStore gameStore : game.getStores()) {
-            Store store = storeService.getStore(gameStore.getStore().getId());
-            StoreDto storeDto = new StoreDto(store.getId(), store.getName(), store.getIsLibraryOnline(), store.getLinkToLibrary());
-            gameStoreDtos.add(
-                    new GameStoreDto(gameStore.getId(), storeDto, gameStore.getReleaseDate(), gameStore.getPrice()));
-            // gameStoreDtos.add(new GameStoreDto(gameStore.getId(),
-            // gameStore.getStore().getId(), gameStore.getReleaseDate(),
-            // gameStore.getPrice()));
+        gameDto.setDeveloper(convertGameDeveloperToDto(game.getDeveloper()));
+        if (game.getStores() != null) {
+            List<GameDtoOutGameStore> gameStoreDtos = new ArrayList<>();
+            for (GameStore gameStore : game.getStores()) {
+                gameStoreDtos.add(convertGameStoreToDto(gameStore));
+            }
+            gameDto.setStores(gameStoreDtos);
         }
-        gameDto.setStores(gameStoreDtos);
         return gameDto;
+    }
+
+    private GameDtoOutGameStore convertGameStoreToDto(GameStore gameStore) {
+        Store store = storeService.getStore(gameStore.getStore().getId());
+        GameDtoOutStore storeDto = new GameDtoOutStore(store.getId(), store.getName(), store.getIsLibraryOnline(), store.getLinkToLibrary());
+        return new GameDtoOutGameStore(gameStore.getId(), storeDto, gameStore.getReleaseDate(), gameStore.getPrice());
+    }
+    
+    private GameDtoOutDeveloper convertGameDeveloperToDto(Developer developer) {
+        return new GameDtoOutDeveloper(developer.getId(), developer.getName(),
+        developer.getFounded(), developer.getCountry());
     }
 }

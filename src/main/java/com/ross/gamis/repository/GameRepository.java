@@ -15,7 +15,7 @@ public interface GameRepository extends JpaRepository<Game,Long> {
     @Query("SELECT g FROM Game g")
     List<Game> getGames();
 
-    @Query("SELECT g FROM Game g JOIN FETCH g.developer JOIN FETCH g.stores")
+    @Query("SELECT g FROM Game g JOIN FETCH g.developer LEFT OUTER JOIN FETCH g.stores")
     List<Game> findAllFetched();
 
     @Query("SELECT g FROM Game g WHERE g.id = :id")

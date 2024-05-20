@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments :: html_head}"></head>
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+    <script src="/js/games.js" type="module"></script>
+</head>
 <body>
 <div class="container">
     <div th:replace="~{fragments :: menu}"></div>

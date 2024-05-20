@@ -32,10 +32,8 @@ spring:
 
 logging:
   level:
-    root: WARN
     com:
-      ross:
-        integration4: DEBUG
+      ross: DEBUG
     org:
-      hibernate: 
+      hibernate:
         SQL: DEBUG

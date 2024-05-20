@@ -16,8 +16,8 @@ public class Game {
     @Column
     private String description;
 
-    // @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    // @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "developer_id")
     private Developer developer;
 
@@ -93,18 +93,14 @@ public class Game {
         this.stores = stores;
     }
 
-    
-    // @Override
-    // public String toString() {
-    //     return "Game{" +
-    //             "id=" + id +
-    //             ", title='" + title + '\'' +
-    //             ", releaseDate=" + releaseDate +
-    //             ", price=" + price +
-    //             ", developerId=" + developerId +
-    //             ", owned=" + owned +
-    //             ", ownedStoreId=" + ownedStoreId +
-    //             ", stores=" + stores +
-    //             '}';
-    // }
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", developer=" + developer +
+                ", stores=" + stores +
+                '}';
+    }
 }

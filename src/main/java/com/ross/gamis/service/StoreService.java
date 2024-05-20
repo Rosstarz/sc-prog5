@@ -18,6 +18,7 @@ public class StoreService {
     public List<Store> getStores(){
         return storeRepository.getStores();
     }
+    
     public Store getStore(Long id){
         return storeRepository.getStore(id);
     }

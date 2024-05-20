@@ -1,30 +1,19 @@
-package com.ross.gamis.controller.api.dto;
+package com.ross.gamis.controller.api.dto.game.out;
 
-import java.util.List;
-
-public class StoreDto {
+public class GameDtoOutStore {
     long id;
     String name;
     Boolean isLibraryOnline;
     String linkToLibrary;
-    List<GameStoreDto> games;
 
-    public StoreDto() {
+    public GameDtoOutStore() {
     }
 
-    public StoreDto(long id, String name, Boolean isLibraryOnline, String linkToLibrary) {
+    public GameDtoOutStore(long id, String name, Boolean isLibraryOnline, String linkToLibrary) {
         this.id = id;
         this.name = name;
         this.isLibraryOnline = isLibraryOnline;
         this.linkToLibrary = linkToLibrary;
-    }
-
-    public StoreDto(long id, String name, Boolean isLibraryOnline, String linkToLibrary, List<GameStoreDto> games) {
-        this.id = id;
-        this.name = name;
-        this.isLibraryOnline = isLibraryOnline;
-        this.linkToLibrary = linkToLibrary;
-        this.games = games;
     }
 
     public long getId() {
@@ -57,13 +46,5 @@ public class StoreDto {
 
     public void setLinkToLibrary(String linkToLibrary) {
         this.linkToLibrary = linkToLibrary;
-    }
-
-    public List<GameStoreDto> getGames() {
-        return games;
-    }
-
-    public void setGames(List<GameStoreDto> games) {
-        this.games = games;
     }
 }

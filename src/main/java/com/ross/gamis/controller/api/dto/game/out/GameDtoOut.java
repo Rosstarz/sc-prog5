@@ -1,20 +1,18 @@
-package com.ross.gamis.controller.api.dto;
+package com.ross.gamis.controller.api.dto.game.out;
 
 import java.util.List;
 
-import com.ross.gamis.domain.GameStore;
-
-public class GameDto {
+public class GameDtoOut {
     private long id;
     private String title;
     private String description;
-    private DeveloperDto developer;
-    private List<GameStoreDto> stores;
+    private GameDtoOutDeveloper developer;
+    private List<GameDtoOutGameStore> stores;
 
-    public GameDto() {
+    public GameDtoOut() {
     }
 
-    public GameDto(long id, String title, String description, DeveloperDto developer) {
+    public GameDtoOut(long id, String title, String description, GameDtoOutDeveloper developer) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -23,7 +21,7 @@ public class GameDto {
 
 
 
-    public GameDto(long id, String title, String description, List<GameStoreDto> stores) {
+    public GameDtoOut(long id, String title, String description, List<GameDtoOutGameStore> stores) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -32,7 +30,7 @@ public class GameDto {
 
 
 
-    public GameDto(long id, String title, String description, DeveloperDto developer, List<GameStoreDto> stores) {
+    public GameDtoOut(long id, String title, String description, GameDtoOutDeveloper developer, List<GameDtoOutGameStore> stores) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -64,19 +62,19 @@ public class GameDto {
         this.description = description;
     }
 
-    public DeveloperDto getDeveloper() {
+    public GameDtoOutDeveloper getDeveloper() {
         return developer;
     }
 
-    public void setDeveloper(DeveloperDto developer) {
+    public void setDeveloper(GameDtoOutDeveloper developer) {
         this.developer = developer;
     }
 
-    public List<GameStoreDto> getStores() {
+    public List<GameDtoOutGameStore> getStores() {
         return stores;
     }
 
-    public void setStores(List<GameStoreDto> stores) {
+    public void setStores(List<GameDtoOutGameStore> stores) {
         this.stores = stores;
     }
 }

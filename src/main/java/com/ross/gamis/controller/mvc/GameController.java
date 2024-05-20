@@ -7,29 +7,34 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.ross.gamis.domain.Game;
-import com.ross.gamis.domain.Store;
+// import com.ross.gamis.domain.Store;
+import com.ross.gamis.service.DeveloperService;
 import com.ross.gamis.service.GameService;
 import com.ross.gamis.service.StoreService;
 
 import jakarta.validation.Valid;
 
-import java.util.*;
+// import java.util.*;
 
 @Controller
 @RequestMapping("/games")
 public class GameController {
     private final GameService gameService;
     private final StoreService storeService;
+    private final DeveloperService developerService;
 
     // @Autowired
-    public GameController(GameService gameService, StoreService storeService){
+    public GameController(GameService gameService, StoreService storeService, DeveloperService developerService) {
         this.gameService = gameService;
         this.storeService = storeService;
+        this.developerService = developerService;
     }
 
     @GetMapping
     public String showGames(Model model){
         model.addAttribute("games",gameService.getGames());
+        model.addAttribute("stores",storeService.getStores());
+        model.addAttribute("developers",developerService.getDevelopers());
         return "game/index";
     }
 
@@ -44,11 +49,6 @@ public class GameController {
         Game game = new Game();
         model.addAttribute("addGameForm", game);
         return "game/add";
-    }
-
-    @ModelAttribute("storesAll")
-    public List<Store> getAllStores() {
-        return storeService.getStores();
     }
 
     @PostMapping("register")

@@ -1,0 +1,46 @@
+TODO week2
+
+### API: get all games, expected 200
+GET http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+### DELETE game by id, expected 204
+DELETE http://localhost:8080/api/games/1
+
+### DELETE game by id, expected 404
+DELETE http://localhost:8080/api/games/1239
+
+### POST game, expected 201
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Team Fortress 2",
+    "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game developed and published by Valve Corporation. It is the sequel to the 1996 mod Team Fortress for Quake and its 1999 remake, Team Fortress Classic.",
+    "developerId": 1
+}
+
+### POST game, expected 404
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Team Fortress 2",
+    "description": "Team",
+    "developerId": 9088
+}
+
+# TODO: dont allow empty title
+### POST game, expected ?
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "",
+    "description": "Team",
+    "developerId": 1
+}

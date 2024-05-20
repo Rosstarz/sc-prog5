@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments :: html_head}"></head>
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+    <script src="/js/games.js" type="module"></script>
+</head>
 <body>
 <div class="container">
     <div th:replace="~{fragments :: menu}"></div>
     <h1 th:text="#{lang.games}"></h1>
+    <!-- <div sec:authorize="isAuthenticated()"> -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModalCenter" th:text="#{lang.add}"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addModalCenterTitle" th:text="#{lang.add_new_game}"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="title" class="form-label" th:text="#{lang.title}"></label>
+                            <input type="text" id="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label" th:text="#{lang.description}"></label>
+                            <input type="text" id="description" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="developer" class="form-label" th:text="#{lang.developer}"></label>
+                            <select class="form-select" aria-label="Game Developer select" id="developer" required>
+                                <option th:each="developer: ${developers}" th:id="${developer.id}" th:value="${developer.name}" th:text="${developer.name}"></option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"data-bs-dismiss="modal" th:text="#{lang.cancel}"></button>
+                    <button id="addButton"type="button" class="btn btn-primary" th:text="#{lang.save}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr>
             <th scope="col" th:text="#{lang.title}"></th>
             <th scope="col" th:text="#{lang.description}"></th>
+            <th scope="col" th:text="#{lang.actions}"></th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="game: ${games}">
-            <td>
-                <a th:text="${game.title}" th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary"></a>
-            </td>
-            <td th:text="${game.description}"></td>
-        </tr>
+        <tbody id="gamesTableBody">
+            <!-- TODO: show developer in table -->
+            <!-- TODO: add action open game and remove button name -->
+            <tr th:id="'game_' + ${game.id}" th:each="game: ${games}" >
+                <td>
+                    <a th:text="${game.title}" th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary"></a>
+                </td>
+                <td th:text="${game.description}"></td>
+                <!-- <td><button th:if="${issue.modificationAllowed}" type="button" class="btn btn-danger btn-sm">Delete</button></td> -->
+                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+            </tr>
         </tbody>
     </table>
     <div th:replace="~{fragments :: footer}"></div>

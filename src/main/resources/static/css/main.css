@@ -5,5 +5,5 @@ footer p {
 
 .lang-select {
     width: 30px;
-    horiz-align: right;
+    /* text-align: right; */
 }
