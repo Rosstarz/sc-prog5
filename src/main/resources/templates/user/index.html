@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+</head>
+<body>
+<div th:replace="~{fragments :: menu}"></div>
+<main class="container">
+    <h1 th:text="#{lang.page.account}"></h1>
+</main>
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

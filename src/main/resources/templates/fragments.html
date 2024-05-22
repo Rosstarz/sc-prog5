@@ -46,7 +46,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/stores" th:text="#{lang.stores}"></a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{lang.add}"></a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/games/add" th:text="#{lang.game}"></a></li>
@@ -54,13 +54,22 @@
             </ul>
           </li>
         </ul>
-        <ul class="d-flex">
-          <select class="form-select form-select-sm" aria-label="Language" id="locales">
-            <option selected th:text="#{lang.select}"></option>
-            <option value="en" th:text="#{lang.eng}"></option>
-            <option value="cz" th:text="#{lang.cze}"></option>
-          </select>
-          <a class="btn btn-success btn-nowrap" type="submit" th:text="#{lang.signin}" href="/login"></a>
+        <ul class="navbar-nav ms-auto">
+          <li sec:authorize="!isAuthenticated()">
+            <a class="btn btn-primary btn-nowrap" type="submit" th:text="#{lang.signin}" href="/login"></a>
+          </li>
+          <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
+            <span class="navbar-text" th:text="#{lang.welcome}"></span>
+            <span class="navbar-text" sec:authentication="name">
+          </li>
+          <li sec:authorize="isAuthenticated()">
+            <a class="btn btn-success btn-nowrap" type="submit" th:text="#{lang.page.account}" href="/account"></a>
+          </li>
+          <li sec:authorize="isAuthenticated()">
+            <form class="d-flex" th:action="@{/logout}" th:method="POST">
+                <button type="submit" class="btn btn-secondary" th:text="#{lang.signout}"></button>
+            </form>
+          </li>
         </ul>
       </div>
     </div>
@@ -70,8 +79,13 @@
 <div th:fragment="footer">
   <!-- <div class="b-example-divider"></div> -->
   <footer class="footer mt-auto py-3 bg-body-tertiary">
-    <div class="container">
-      <div class=" text-center text-body-secondary">
+    <div class="container text-center">
+      <select class="form-select form-select-sm select-language text-center" aria-label="Language" id="locales">
+        <option selected th:text="#{lang.select}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="cz" th:text="#{lang.cze}"></option>
+      </select>
+      <div class="text-center text-body-secondary">
         <p th:text="#{footer.rights}"></p>
       </div>
       <div class="text-center text-body-secondary">

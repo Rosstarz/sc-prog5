@@ -40,3 +40,7 @@
 .btn-nowrap {
     white-space: nowrap;
 }
+
+.select-language {
+    max-width: 115px;
+}

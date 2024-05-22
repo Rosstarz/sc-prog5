@@ -6,6 +6,7 @@ import com.ross.gamis.controller.api.dto.game.in.GameDtoIn;
 import com.ross.gamis.controller.api.dto.game.out.GameDtoOut;
 import com.ross.gamis.converter.GameConverter;
 import com.ross.gamis.domain.Game;
+import com.ross.gamis.security.AdminOnly;
 import com.ross.gamis.security.CustomUserDetails;
 import com.ross.gamis.service.GameService;
 
@@ -69,6 +70,7 @@ public class GameApiController {
     }
 
     @PatchMapping("/{id}")
+    @AdminOnly
     public ResponseEntity<GameDtoOut> updateGame(@PathVariable("id") Long id, @Valid @RequestBody GameDtoIn gameDto, @AuthenticationPrincipal CustomUserDetails user) {
         logger.debug("GameDtoPatch: {}", gameDto.toString());
         Game updatedGame = gameService.updateGame(id,gameDto);
@@ -82,6 +84,7 @@ public class GameApiController {
     }
 
     @DeleteMapping("/{id}")
+    @AdminOnly
     public ResponseEntity<Void> deleteGame(@PathVariable("id") Long id) {
         if(gameService.deleteGame(id)){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -90,6 +93,7 @@ public class GameApiController {
     }
 
     @PostMapping()
+    @AdminOnly
     public ResponseEntity<GameDtoOut> addGame(@Valid @RequestBody GameDtoIn gameDto) {
         logger.debug("GameDtoPost: {}", gameDto.toString());
         Game createdGame = gameService.addGameDto(

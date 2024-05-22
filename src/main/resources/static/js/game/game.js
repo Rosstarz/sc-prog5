@@ -53,7 +53,6 @@ async function setDevelopersList(){
         .then(response => response.json())
         .then(data => {
             const selectDeveloper = document.getElementById('select-developer');
-            // console.log(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
             data.forEach(developer => {
                 const option = document.createElement('option');
                 option.value = developer.name;
@@ -61,7 +60,6 @@ async function setDevelopersList(){
                 option.id = developer.id;
                 // console.log(developer.gameIds);
                 if (developer.gameIds.includes(parseInt(window.location.href.substring(window.location.href.lastIndexOf('/') + 1)))) {
-                    console.log('selected');
                     option.selected = true;
                 }
                 selectDeveloper.appendChild(option);
@@ -92,12 +90,12 @@ async function updateGame() {
             developerId: developer.options[developer.selectedIndex].id
         })
     });
-    if (response.status === 201) {
+    if (response.status === 200) {
         const game = await response.json();
-        // updateGameHtml(game);
         getGame();
-        console.log(game);
-        alert("Added successfully!");
+        // console.log(game);
+        // alert("Updated successfully!");
+        console.log("Updated successfully!");
         $(addModal).modal('hide');
     } else {
         alert("Something went wrong!"); // alerts are "bad"...

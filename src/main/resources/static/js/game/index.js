@@ -27,8 +27,9 @@ async function addNewGame() {
     if (response.status === 201) {
         const game = await response.json();
         addGameToTable(game);
-        console.log(game);
-        alert("Added successfully!");
+        // console.log(game);
+        // alert("Added successfully!");
+        console.log("Added successfully!");
         $(addModal).modal('hide');
     } else {
         alert("Something went wrong!"); // alerts are "bad"...
@@ -66,7 +67,7 @@ for (const deleteButton of deleteButtons) {
 }
 
 async function handleDeleteGame(event) {
-    const rowId = event.target.parentNode.parentNode.id;
+    const rowId = event.target.parentNode.parentNode.parentNode.id;
     const gameId = parseInt(rowId.substring(rowId.indexOf('_') + 1));
     const response = await fetch(`/api/games/${gameId}`, {
         method: "DELETE",
@@ -77,5 +78,6 @@ async function handleDeleteGame(event) {
     if (response.status === 204) {
         const row = document.getElementById(`game_${gameId}`);
         row.parentNode.removeChild(row);
+        console.log("Deleted successfully!");
     }
 }

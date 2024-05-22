@@ -13,7 +13,7 @@
     <h1 th:text="#{lang.games}"></h1>
     <!-- <div sec:authorize="isAuthenticated()"> -->
     <!-- Button trigger modal -->
-    <div sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModalCenter" th:text="#{lang.add}"></button>
     </div>
     <!-- Modal -->
@@ -67,7 +67,7 @@
                 <!-- <td><button th:if="${issue.modificationAllowed}" type="button" class="btn btn-danger btn-sm">Delete</button></td> -->
                 <td>
                     <a th:text="#{lang.details}" th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-sm"></a>
-                    <div sec:authorize="isAuthenticated()">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <button th:text="#{lang.delete}" type="button" class="btn btn-danger btn-sm"></button>
                     </div>
                 </td>

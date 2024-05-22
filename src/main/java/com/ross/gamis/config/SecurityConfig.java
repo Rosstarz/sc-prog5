@@ -41,8 +41,8 @@ public class SecurityConfig {
                     .requestMatchers(antMatcher(HttpMethod.GET, "/"))
                         .permitAll()
                     .anyRequest()
-                        // .authenticated()
-                        .permitAll()
+                        .authenticated()
+                        // .permitAll()
             )
             // .csrf(csrf -> csrf.ignoringRequestMatchers(
             //         antMatcher(HttpMethod.POST, "/api/issues") // Disable specifically for the client application
