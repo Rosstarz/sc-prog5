@@ -1,0 +1,27 @@
+server:
+  port: 8181
+  error:
+    whitelabel.enabled: true
+    include-message: always
+
+spring:
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/, classpath:/static/
+  sql:
+    init:
+      mode: always
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+  datasource:
+    password: "Student1234"
+    username: "postgres"
+    url: "jdbc:postgresql://prog5-prog5-db-test-1:5432/prog"
+
+logging:
+  level:
+    com:
+      ross: DEBUG
+    org:
+      hibernate:
+        SQL: DEBUG

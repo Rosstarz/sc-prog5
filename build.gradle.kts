@@ -6,6 +6,7 @@ plugins {
 
 group = "com.ross"
 version = "0.0.1-SNAPSHOT"
+val springProfilesActiveTests: String by project
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -62,6 +63,7 @@ dependencies {
 }
 
 tasks.withType<Test> {
+    println("[INFO] Using spring profile: $springProfilesActiveTests")
+    systemProperty("spring.profiles.active", springProfilesActiveTests)
     useJUnitPlatform()
 }
-

@@ -1,6 +1,8 @@
 package com.ross.gamis.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
 @Entity(name="Game")
@@ -11,6 +13,7 @@ public class Game {
     private long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Game title cannnot be blank")
     private String title;
 
     @Column
