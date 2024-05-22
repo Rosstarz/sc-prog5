@@ -45,15 +45,17 @@ public class GameApiController {
     @GetMapping()
     public ResponseEntity<List<GameDtoOut>> getAllGames() {
         List<Game> games = gameService.getGamesFetched();
+        // Debugging
         for (Game game : games) {
             logger.debug("Game: {}", game.toString());
         }
         List<GameDtoOut> gameDtos = games.stream()
             .map(gameConverter::convertToDto)
             .toList();
-        for (GameDtoOut gameDto : gameDtos) {
-            logger.debug("GameDto: {}", gameDto.toString());
-        }
+        // Debugging
+        // for (GameDtoOut gameDto : gameDtos) {
+        //     logger.debug("GameDto: {}", gameDto.toString());
+        // }
         return new ResponseEntity<>(gameDtos, HttpStatus.OK);
     }
 

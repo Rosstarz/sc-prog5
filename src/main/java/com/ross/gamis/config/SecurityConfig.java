@@ -33,8 +33,8 @@ public class SecurityConfig {
                             regexMatcher(HttpMethod.GET, "\\.ico$"))
                         .permitAll()
                     .requestMatchers(
-                            antMatcher(HttpMethod.GET, "/api/**"),
-                            antMatcher(HttpMethod.PATCH, "/api/**"))
+                            antMatcher(HttpMethod.GET, "/api/games/**"),
+                            antMatcher(HttpMethod.GET, "/api/developers/**"))
                             // ,
                             // antMatcher(HttpMethod.POST, "/api/issues")) // Specifically allowing this for the separate client
                         .permitAll()

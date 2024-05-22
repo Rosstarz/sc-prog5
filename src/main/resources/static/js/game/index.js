@@ -32,7 +32,7 @@ async function addNewGame() {
         console.log("Added successfully!");
         $(addModal).modal('hide');
     } else {
-        alert("Something went wrong!"); // alerts are "bad"...
+        alert("Something went wrong!");
     }
 }
 
@@ -81,3 +81,23 @@ async function handleDeleteGame(event) {
         console.log("Deleted successfully!");
     }
 }
+
+// //
+// // Get Games Owned
+// const isOwnedButton = document.getElementById("isOwnedButton");
+
+// async function getGamesOwned() {
+//     const response = await fetch('/api/games/owned', {
+//         headers: {
+//             [header]: token
+//         }
+//     });
+//     if (response.status === 200) {
+//         const games = await response.json();
+//         console.log(games);
+//     } else {
+//         alert("Something went wrong!");
+//     }
+// }
+
+// window.addEventListener('load', () => getGamesOwned());

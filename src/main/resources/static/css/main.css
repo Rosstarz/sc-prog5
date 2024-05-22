@@ -44,3 +44,14 @@
 .select-language {
     max-width: 115px;
 }
+
+/* .is-owned-button {
+    text-align: right;
+    justify-content: flex-end;
+    display: flex;
+} */
+
+.store-item {
+    display: flex;
+    justify-content: space-between;
+}

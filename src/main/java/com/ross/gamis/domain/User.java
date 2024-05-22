@@ -1,6 +1,7 @@
 package com.ross.gamis.domain;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity(name="User")
 @Table(name="app_user")
@@ -18,6 +19,9 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserGameStore> gameStores;
+
     public User() {
     }
 
@@ -25,6 +29,21 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String username, String password, UserRole role, List<UserGameStore> gameStores) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.gameStores = gameStores;
+    }
+
+    public User(long id, String username, String password, UserRole role, List<UserGameStore> gameStores) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.gameStores = gameStores;
     }
 
     public long getId() {
@@ -59,5 +78,11 @@ public class User {
         this.role = role;
     }
 
-    
+    public List<UserGameStore> getGameStores() {
+        return gameStores;
+    }
+
+    public void setGameStores(List<UserGameStore> gameStores) {
+        this.gameStores = gameStores;
+    }
 }

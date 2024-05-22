@@ -16,7 +16,7 @@ public class CustomUserDetails extends User {
         this.userId = userId;
     }
 
-    public long getDeveloperId() {
+    public long getId() {
         return userId;
     }
 }

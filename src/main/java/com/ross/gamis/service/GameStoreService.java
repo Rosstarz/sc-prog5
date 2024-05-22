@@ -2,6 +2,7 @@ package com.ross.gamis.service;
 
 import org.springframework.stereotype.Service;
 
+import com.ross.gamis.domain.GameStore;
 import com.ross.gamis.repository.GameStoreRepository;
 
 @Service
@@ -18,5 +19,9 @@ public class GameStoreService {
         } else {
             return true;
         }
+    }
+
+    public GameStore getGameStoreById(long id) {
+        return gameStoreRepository.findById(id).orElse(null);
     }
 }

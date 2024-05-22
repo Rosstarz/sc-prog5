@@ -1,10 +1,11 @@
 import { header, token } from "../util/csrf.js";
+import { userGamesOwned } from "../util/user.js";
 
 //
 // Get Game
 async function getGame() {
-    var gameId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    const response = await fetch('/api/games/' + gameId, {
+    var currGameId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    const response = await fetch('/api/games/' + currGameId, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -13,6 +14,8 @@ async function getGame() {
 
     if (response.status === 200) {
         const data = await response.json();
+        const gamesOwned = await userGamesOwned();
+        console.log(gamesOwned);
 
         // Set game title and description
         const gameTitle = document.getElementById('game-title');
@@ -31,12 +34,25 @@ async function getGame() {
 
         // Set game store list
         const storeList = document.getElementById('store-list');
+        storeList.innerHTML = '';
         data.stores.forEach(store => {
-            const storeItem = document.createElement('li');
-            storeItem.className = 'list-group-item';
-            storeItem.innerHTML = '<a href="/stores/' + store.store.id + '">' + store.store.name + '</a> - ' + store.price + '$';
-            storeList.appendChild(storeItem);
+            const storeItemLi = document.createElement('li');
+            storeItemLi.className = 'list-group-item';
+            const storeItem = document.createElement('div');
+            storeItem.className = 'store-item';
+            storeItem.id = 'gamestore_' + store.id;
+            storeItem.innerHTML = '<span><a href="/stores/' + store.store.id + '">' + store.store.name + '</a> - ' + store.price + '$</span>';
+            if (gamesOwned.find((userGame) => userGame.gameStore.gameId == currGameId && userGame.gameStore.storeId == store.store.id)){
+                console.log("Owned on " + store.store.name);
+                storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-success isOwnedButton">Owned</button>';
+            } else {
+                console.log("Not owned on " + store.store.name);
+                storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-danger isOwnedButton">Add</button>';
+            }
+            storeItemLi.appendChild(storeItem);
+            storeList.appendChild(storeItemLi);
         });
+        setOwnedButtons();
     } else {
         window.location.href = "/404";
     }
@@ -98,8 +114,38 @@ async function updateGame() {
         console.log("Updated successfully!");
         $(addModal).modal('hide');
     } else {
-        alert("Something went wrong!"); // alerts are "bad"...
+        alert("Something went wrong!");
     }
 }
 
+//
+// Set game ownership on cick
+function setOwnedButtons() {
+    const isOwnedButtons = document.querySelectorAll('button.isOwnedButton');
+    for (const isOwnedButton of isOwnedButtons) {
+        isOwnedButton.addEventListener("click", setGameOwnership.bind(null, isOwnedButton));
+    }
+}
+
+async function setGameOwnership(isOwnedButton) {
+    console.log("Set game ownership");
+    const storeId = isOwnedButton.parentElement.id.substring(isOwnedButton.parentElement.id.lastIndexOf('_') + 1);
+    const response = await fetch('/api/users/games/' + storeId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        }
+    });
+    if (response.status === 200) {
+        // const data = await response.json();
+        // console.log(data);
+        console.log("Set successfully!");
+        getGame();
+    } else {
+        alert("Something went wrong!");
+    }
+}
+
+// Run on window load
 window.addEventListener('load', () => getGame(), setDevelopersList());

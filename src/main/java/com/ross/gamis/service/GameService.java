@@ -9,6 +9,7 @@ import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.repository.GameRepository;
 import com.ross.gamis.repository.GameStoreRepository;
+import com.ross.gamis.repository.UserGameStoreRepository;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameStoreRepository gameStoreRepository;
     private final DeveloperService developerService;
+    private final UserGameStoreService userGameStoreService;
 
     // @Autowired
-    public GameService(GameRepository gameRepository, GameStoreRepository gameStoreRepository, DeveloperService developerService){
+    public GameService(GameRepository gameRepository, GameStoreRepository gameStoreRepository, DeveloperService developerService, UserGameStoreService userGameStoreService) {
         this.gameRepository = gameRepository;
         this.gameStoreRepository = gameStoreRepository;
         this.developerService = developerService;
+        this.userGameStoreService = userGameStoreService;
     }
 
     // @Transactional
@@ -62,6 +65,7 @@ public class GameService {
         if (game == null) {
             return false;
         } else {
+            userGameStoreService.deleteUserGameStoreAllByGameStore(game.getStores());
             gameStoreRepository.deleteAll(game.getStores());
             gameRepository.deleteAllById(id);
             return true;

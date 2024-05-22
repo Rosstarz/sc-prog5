@@ -70,6 +70,9 @@
                     <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <button th:text="#{lang.delete}" type="button" class="btn btn-danger btn-sm"></button>
                     </div>
+                    <!-- <div sec:authorize="isAuthenticated()">
+                        <button type="button" class="btn btn-sm" id="isOwnedButton"></button>
+                    </div> -->
                 </td>
             </tr>
         </tbody>

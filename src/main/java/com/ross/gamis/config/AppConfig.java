@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.ross.gamis.converter.DeveloperConverter;
 import com.ross.gamis.converter.GameConverter;
 import com.ross.gamis.converter.StoreConverter;
+import com.ross.gamis.converter.UserGameStoreConverter;
 import com.ross.gamis.service.StoreService;
 
 @Configuration
@@ -35,5 +36,10 @@ public class AppConfig {
     @Bean
     public DeveloperConverter developerConverter() {
         return new DeveloperConverter();
+    }
+
+    @Bean
+    public UserGameStoreConverter userGameStoreConverter() {
+        return new UserGameStoreConverter();
     }
 }

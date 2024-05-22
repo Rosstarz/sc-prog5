@@ -22,11 +22,29 @@ VALUES
 INSERT INTO game_store (game_id, store_id, release_date, price)
 VALUES
     ('1', '1', '2011-08-23', '0.0'),
+    ('1', '2', '2011-08-23', '0.0'),
+    ('1', '3', '2011-08-23', '0.0'),
+    ('1', '4', '2011-08-23', '0.0'),
     ('2', '1', '2012-08-21', '0.0'),
     ('3', '1', '2019-11-14', '19.99'),
+    ('3', '2', '2019-12-03', '19.99'),
+    ('3', '3', '2020-01-20', '17.99'),
+    ('3', '4', '2020-10-04', '15.99'),
     ('4', '2', '2022-01-14', '49.99');
 
 INSERT INTO app_user(username, password, role)
 VALUES ('ross', '$2a$10$hiRHbNcO.iJJc3oHZw.Couccct8n4dks6Il/QBgwoWOW8h2H9l/7.', 1),/*ross, xV4Jv-VA!b12, admin*/
     ('admin', '$2a$10$oh3PI3jPslmkcbE9PBt9gulveiyMQDSKp4dMbWNkpDlv9CokbSLyW', 1),/*admin, 58HZY(Y4q}fV, admin*/
     ('user', '$2a$10$43bXL.dF00Z9PXiXOzBOeuMjmvki09gIC2Lp6u65J0PTQs0rAadca', 0); /*user, .qD6w4\;3gF6, user*/
+
+INSERT INTO user_game_store (user_id, game_store_id, is_owned, owned_set_date)
+VALUES
+    ('1', '1', 'true', '2022-01-14'),
+    ('1', '2', 'true', '2022-02-15'),
+    ('1', '3', 'true', '2022-03-16'),
+    ('2', '4', 'true', '2022-04-17'),
+    ('1', '4', 'false', '2022-05-18'),
+    ('1', '6', 'true', '2022-05-18'),
+    ('2', '2', 'false', '2022-06-19'),
+    ('3', '3', 'true', '2022-07-20'),
+    ('3', '4', 'true', '2022-08-21');

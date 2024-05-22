@@ -10,8 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+
+import java.util.List;
 
 @Entity
 @Table(name = "game_store", uniqueConstraints = {@UniqueConstraint(columnNames = {"game_id", "store_id"})})
@@ -34,8 +37,8 @@ public class GameStore {
     @Column(nullable = false)
     private Double price;
 
-    // @Column(name = "is_owned")
-    // private boolean isOwned;
+    @OneToMany(mappedBy = "gameStore")
+    private List<UserGameStore> users;
 
     public GameStore() {
     }
@@ -47,22 +50,32 @@ public class GameStore {
         this.price = price;
     }
 
-    // public GameStore(Game game, Store store, LocalDateTime releaseDate, Double price, boolean isOwned) {
-    //     this.game = game;
-    //     this.store = store;
-    //     this.releaseDate = releaseDate;
-    //     this.price = price;
-    //     this.isOwned = isOwned;
-    // }
-
     public GameStore(long id, Game game, Store store, LocalDateTime releaseDate, Double price) {
         this.id = id;
         this.game = game;
         this.store = store;
         this.releaseDate = releaseDate;
         this.price = price;
-        // this.isOwned = isOwned;
     }
+
+    public GameStore(Game game, Store store, LocalDateTime releaseDate, Double price, List<UserGameStore> users) {
+        this.game = game;
+        this.store = store;
+        this.releaseDate = releaseDate;
+        this.price = price;
+        this.users = users;
+    }
+
+    public GameStore(long id, Game game, Store store, LocalDateTime releaseDate, Double price,
+            List<UserGameStore> users) {
+        this.id = id;
+        this.game = game;
+        this.store = store;
+        this.releaseDate = releaseDate;
+        this.price = price;
+        this.users = users;
+    }
+
 
     public long getId() {
         return id;
@@ -104,13 +117,11 @@ public class GameStore {
         this.price = price;
     }
 
-    // public boolean isOwned() {
-    //     return isOwned;
-    // }
+    public List<UserGameStore> getUsers() {
+        return users;
+    }
 
-    // public void setOwned(boolean isOwned) {
-    //     this.isOwned = isOwned;
-    // }
-
-    
+    public void setUsers(List<UserGameStore> users) {
+        this.users = users;
+    }
 }
