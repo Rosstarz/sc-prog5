@@ -1,4 +1,4 @@
-// import { header, token } from "./util/csrf.js";
+import { header, token } from "../util/csrf.js";
 
 // 
 // Add Game to DB
@@ -15,9 +15,8 @@ async function addNewGame() {
         method: "POST",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json"
-            // ,
-            // [header]: token
+            "Content-Type": "application/json",
+            [header]: token
         },
         body: JSON.stringify({
             title: title.value,
@@ -38,7 +37,6 @@ async function addNewGame() {
 
 // New Game show in table
 function addGameToTable(game) {
-    // Todo: show new game in table
     const tableRow = document.createElement("tr");
     tableRow.id = `game_${game.id}`;
     
@@ -71,11 +69,10 @@ async function handleDeleteGame(event) {
     const rowId = event.target.parentNode.parentNode.id;
     const gameId = parseInt(rowId.substring(rowId.indexOf('_') + 1));
     const response = await fetch(`/api/games/${gameId}`, {
-        method: "DELETE"
-        // ,
-        // headers: {
-        //     [header]: token
-        // }
+        method: "DELETE",
+        headers: {
+            [header]: token
+        }
     })
     if (response.status === 204) {
         const row = document.getElementById(`game_${gameId}`);

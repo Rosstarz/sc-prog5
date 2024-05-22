@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <thymeleaf th:replace="~{fragments :: html_head}"/>
     <script src="/js/game/game.js" type="module"></script>
@@ -13,7 +16,9 @@
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title" id="game-title"></h5>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModalCenter" th:text="#{lang.edit}"></button>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModalCenter" th:text="#{lang.edit}"></button>
+                    </div>
                 </div>
                 <h6 class="card-subtitle mb-2 text-body-secondary" id="developer-title"></h6>
                 <!-- TODO link to developer -->

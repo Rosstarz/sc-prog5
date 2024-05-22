@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <thymeleaf th:replace="~{fragments :: html_head}"/>
     <script src="/js/game/index.js" type="module"></script>
@@ -10,7 +13,9 @@
     <h1 th:text="#{lang.games}"></h1>
     <!-- <div sec:authorize="isAuthenticated()"> -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModalCenter" th:text="#{lang.add}"></button>
+    <div sec:authorize="isAuthenticated()">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModalCenter" th:text="#{lang.add}"></button>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -62,7 +67,9 @@
                 <!-- <td><button th:if="${issue.modificationAllowed}" type="button" class="btn btn-danger btn-sm">Delete</button></td> -->
                 <td>
                     <a th:text="#{lang.details}" th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-sm"></a>
-                    <button th:text="#{lang.delete}" type="button" class="btn btn-danger btn-sm"></button>
+                    <div sec:authorize="isAuthenticated()">
+                        <button th:text="#{lang.delete}" type="button" class="btn btn-danger btn-sm"></button>
+                    </div>
                 </td>
             </tr>
         </tbody>

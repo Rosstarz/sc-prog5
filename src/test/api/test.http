@@ -1,9 +1,10 @@
-TODO week2
-
-### API: get all games, expected 200
-GET http://localhost:8080/api/games
+### GET all games, expected 200
+GET http://localhost:8080/api/games HTTP/1.1
 Accept: application/json
-Content-Type: application/json
+
+### GET all games XML, expected 200
+GET http://localhost:8080/api/games HTTP/1.1
+Accept: application/xml
 
 ### DELETE game by id, expected 204
 DELETE http://localhost:8080/api/games/1
@@ -33,8 +34,7 @@ Content-Type: application/json
     "developerId": 9088
 }
 
-# TODO: dont allow empty title
-### POST game, expected ?
+### POST game, dont allow empty title, expected 400
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
@@ -45,7 +45,7 @@ Content-Type: application/json
     "developerId": 1
 }
 
-### PATCH Update game, expected 201
+### PATCH Update game, expected 200
 PATCH http://localhost:8080/api/games/1
 Accept: application/json
 Content-Type: application/json
@@ -67,12 +67,42 @@ Content-Type: application/json
     "developerId": "2"
 }
 
-# TODO validate
-### PATCH Update game, expected ?
+### PATCH Update game, missing title, expected 400
 PATCH http://localhost:8080/api/games/1
 Accept: application/json
 Content-Type: application/json
 
 {
-    "title": "Counter-Strike 2"
+    "description": "For"
+}
+
+### POST create game, missing developer, expected 400
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "For"
+}
+
+### POST create game, title too short, expected 400
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "C",
+    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
+    "developerId": "2"
+}
+
+### POST create game, description too long, expected 400
+POST http://localhost:8080/api/games
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Counter-Strike 2",
+    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2. For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2. For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin.",
+    "developerId": "2"
 }

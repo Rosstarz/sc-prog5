@@ -15,4 +15,9 @@ public class IndexController {
     public String getNotFound() {
         return "404";
     }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
 }

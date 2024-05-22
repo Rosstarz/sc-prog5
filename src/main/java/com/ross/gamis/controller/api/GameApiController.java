@@ -6,6 +6,7 @@ import com.ross.gamis.controller.api.dto.game.in.GameDtoIn;
 import com.ross.gamis.controller.api.dto.game.out.GameDtoOut;
 import com.ross.gamis.converter.GameConverter;
 import com.ross.gamis.domain.Game;
+import com.ross.gamis.security.CustomUserDetails;
 import com.ross.gamis.service.GameService;
 
 import jakarta.validation.Valid;
@@ -23,7 +24,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @RestController
 @RequestMapping("/api/games")
@@ -68,13 +69,13 @@ public class GameApiController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<GameDtoOut> updateGame(@PathVariable("id") Long id, @RequestBody @Valid GameDtoIn gameDto) {
+    public ResponseEntity<GameDtoOut> updateGame(@PathVariable("id") Long id, @Valid @RequestBody GameDtoIn gameDto, @AuthenticationPrincipal CustomUserDetails user) {
         logger.debug("GameDtoPatch: {}", gameDto.toString());
         Game updatedGame = gameService.updateGame(id,gameDto);
         if(updatedGame != null){
             return new ResponseEntity<>(
                 gameConverter.convertToDto(updatedGame),
-                HttpStatus.CREATED
+                HttpStatus.OK
             );
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,7 +90,7 @@ public class GameApiController {
     }
 
     @PostMapping()
-    public ResponseEntity<GameDtoOut> addGame(@RequestBody @Valid GameDtoIn gameDto) {
+    public ResponseEntity<GameDtoOut> addGame(@Valid @RequestBody GameDtoIn gameDto) {
         logger.debug("GameDtoPost: {}", gameDto.toString());
         Game createdGame = gameService.addGameDto(
                 gameDto.getTitle(), 

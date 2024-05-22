@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments :: html_head}"></head>
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+</head>
 <body>
+<div th:replace="~{fragments :: menu}"></div>
 <div class="container">
-    <div th:replace="~{fragments :: menu}"></div>
     <h1 th:text="#{lang.greeting}"></h1>
-    <div th:replace="~{fragments :: footer}"></div>
 </div>
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>

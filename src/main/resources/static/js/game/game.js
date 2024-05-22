@@ -1,3 +1,5 @@
+import { header, token } from "../util/csrf.js";
+
 //
 // Get Game
 async function getGame() {
@@ -6,8 +8,6 @@ async function getGame() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-            // ,
-            // [header]: token
         }
     });
 
@@ -83,9 +83,8 @@ async function updateGame() {
         method: "PATCH",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json"
-            // ,
-            // [header]: token
+            "Content-Type": "application/json",
+            [header]: token
         },
         body: JSON.stringify({
             title: title.value,
@@ -104,9 +103,5 @@ async function updateGame() {
         alert("Something went wrong!"); // alerts are "bad"...
     }
 }
-
-// function updateGameHtml(game){
-
-// }
 
 window.addEventListener('load', () => getGame(), setDevelopersList());

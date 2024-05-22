@@ -52,7 +52,7 @@ public class GameController {
         return "game/add";
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public String registerNewGame(@Valid @ModelAttribute Game game, BindingResult errors, Model model){
         model.addAttribute("addGameForm", new Game());
         if (errors.hasErrors()) {

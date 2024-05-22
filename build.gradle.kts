@@ -30,6 +30,7 @@ dependencies {
 //    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     // testImplementation("io.projectreactor:reactor-test")
     implementation("org.modelmapper:modelmapper:3.2.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
     // Web
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -53,6 +54,11 @@ dependencies {
     implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
+
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 }
 
 tasks.withType<Test> {

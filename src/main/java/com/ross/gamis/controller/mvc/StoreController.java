@@ -39,7 +39,7 @@ public class StoreController {
         return "store/add";
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public String registerStore(@Valid @ModelAttribute Store store, BindingResult errors, Model model){
         model.addAttribute("addStoreForm", new Store());
         if (errors.hasErrors()) {

@@ -25,3 +25,8 @@ VALUES
     ('2', '1', '2012-08-21', '0.0'),
     ('3', '1', '2019-11-14', '19.99'),
     ('4', '2', '2022-01-14', '49.99');
+
+INSERT INTO app_user(username, password, role)
+VALUES ('ross', '$2a$10$hiRHbNcO.iJJc3oHZw.Couccct8n4dks6Il/QBgwoWOW8h2H9l/7.', 1),/*ross, xV4Jv-VA!b12, admin*/
+    ('admin', '$2a$10$oh3PI3jPslmkcbE9PBt9gulveiyMQDSKp4dMbWNkpDlv9CokbSLyW', 1),/*admin, 58HZY(Y4q}fV, admin*/
+    ('user', '$2a$10$43bXL.dF00Z9PXiXOzBOeuMjmvki09gIC2Lp6u65J0PTQs0rAadca', 0); /*user, .qD6w4\;3gF6, user*/

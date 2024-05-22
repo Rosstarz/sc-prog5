@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+</head>
+<body class="d-flex align-items-center py-4">
+    <main class="form-signin w-100 m-auto">
+        <form th:action="@{/login}" method="post">
+            <h1 class="h3 mb-3 fw-normal" th:text="#{lang.pleasesignin}"></h1>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username" >
+                <label for="floatingInput" th:text="#{lang.username}"></label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                <label for="floatingPassword" th:text="#{lang.password}"></label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit" th:text="#{lang.signin}"></button>
+            <p class="mt-5 mb-3 text-body-secondary" th:text="#{footer.rights}"></p>
+        </form>
+    </main>
+</body>
+</html>
