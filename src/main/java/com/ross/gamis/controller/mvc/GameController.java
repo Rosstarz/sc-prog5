@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ross.gamis.controller.mvc.viewmodel.DeveloperViewModel;
+import com.ross.gamis.controller.mvc.viewmodel.GameViewModel;
 import com.ross.gamis.domain.Game;
 // import com.ross.gamis.domain.Store;
 import com.ross.gamis.service.DeveloperService;
@@ -31,11 +34,18 @@ public class GameController {
     }
 
     @GetMapping
-    public String showGames(Model model){
-        model.addAttribute("games",gameService.getGames());
-        model.addAttribute("stores",storeService.getStores());
-        model.addAttribute("developers",developerService.getDevelopers());
-        return "game/index";
+    public ModelAndView showGames(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("game/index");
+        modelAndView.addObject("games", 
+            gameService.getGames()
+                .stream()
+                .map(game -> new GameViewModel(game.getId(), game.getTitle(), game.getDescription(), new DeveloperViewModel(game.getDeveloper().getId(),game.getDeveloper().getName(),game.getDeveloper().getFounded(),game.getDeveloper().getCountry().getName())))
+                // , game.getStores().stream().map(gameStore -> gameStore.getId()).toList()
+                .toList()
+        );
+        // modelAndVideo
+        return modelAndView;
     }
 
     @GetMapping("/{id}")

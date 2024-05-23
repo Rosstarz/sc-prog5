@@ -27,12 +27,6 @@ public class GameRepositoryTest {
     @Autowired
     private DeveloperRepository developerRepository;
 
-    private Developer createdDeveloper;
-
-    @BeforeEach
-    public void setupEach() {
-        createdDeveloper = developerRepository.save(new Developer("deve", LocalDate.now(), Country.BRAZIL));
-    }
 
     @Test
     public void findAllFetchedDevsShouldReturnGamesWithDeveloper(){
@@ -49,6 +43,7 @@ public class GameRepositoryTest {
     @Test
     public void gameTitleShouldNotBeBlank(){
         // Arrange
+        Developer createdDeveloper = developerRepository.save(new Developer("deve", LocalDate.now(), Country.BRAZIL));
 
         // Act
         Executable executable = () -> gameRepository.save(new Game("", "desc", createdDeveloper));

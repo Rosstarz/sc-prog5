@@ -60,6 +60,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+
+    // Testing
+    testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 }
 
 tasks.withType<Test> {
