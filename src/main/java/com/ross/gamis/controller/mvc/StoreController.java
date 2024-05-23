@@ -5,8 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ross.gamis.controller.mvc.viewmodel.DeveloperViewModel;
+import com.ross.gamis.controller.mvc.viewmodel.GameViewModel;
+import com.ross.gamis.controller.mvc.viewmodel.StoreViewModel;
 import com.ross.gamis.domain.Store;
+import com.ross.gamis.security.AdminOnly;
 import com.ross.gamis.service.StoreService;
 
 import jakarta.validation.Valid;
@@ -28,9 +33,12 @@ public class StoreController {
     }
 
     @GetMapping("/{id}")
-    public String showStore(Model model, @PathVariable(value = "id") Long id){
-        model.addAttribute("store",storeService.getStore(id));
-        return "store/store";
+    public ModelAndView showStore(@PathVariable(value = "id") Long id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("store/store");
+        Store store = storeService.getStore(id);
+        modelAndView.addObject("store", new StoreViewModel(store.getId(), store.getName(), store.getIsLibraryOnline(), store.getLinkToLibrary()));
+        return modelAndView;
     }
 
     @GetMapping("/add")
@@ -40,6 +48,7 @@ public class StoreController {
     }
 
     @PostMapping("/register")
+    @AdminOnly
     public String registerStore(@Valid @ModelAttribute Store store, BindingResult errors, Model model){
         model.addAttribute("addStoreForm", new Store());
         if (errors.hasErrors()) {

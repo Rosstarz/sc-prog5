@@ -2,6 +2,7 @@ package com.ross.gamis.controller.mvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
@@ -13,15 +14,22 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ross.gamis.controller.mvc.viewmodel.DeveloperViewModel;
 import com.ross.gamis.controller.mvc.viewmodel.GameViewModel;
+import com.ross.gamis.controller.mvc.viewmodel.StoreViewModel;
 import com.ross.gamis.domain.Country;
 import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.domain.GameStore;
 import com.ross.gamis.domain.Store;
+import com.ross.gamis.domain.UserGameStore;
 import com.ross.gamis.repository.DeveloperRepository;
 import com.ross.gamis.repository.GameRepository;
 import com.ross.gamis.repository.GameStoreRepository;
@@ -29,8 +37,15 @@ import com.ross.gamis.repository.StoreRepository;
 import com.ross.gamis.repository.UserGameStoreRepository;
 import com.ross.gamis.service.GameService;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+// import static org.mockito.Mockito.*;
+// import static org.mockito.BDDMockito.*;
+// import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+
+import org.hamcrest.MatcherAssert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,7 +54,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GameControllerTest {
+public class StoreControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -56,6 +71,7 @@ public class GameControllerTest {
     private UserGameStoreRepository userGameStoreRepository;
 
     private int gameCount = 3;
+    private long nonExistingStoreId = 9999L;
 
     private Game createdGame;
     private Game createdGameTwo;
@@ -118,24 +134,24 @@ public class GameControllerTest {
     }
 
     @Test
-    public void gamesViewShouldBeRenderedWithGameAndStoreData() throws Exception {
-        var mvcResult = mockMvc.perform(
-                get("/games"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("game/index"))
-                .andExpect(model().attribute("games",
-                        Matchers.samePropertyValuesAs(gameService.getGames()
-                                .stream()
-                                .map(game -> new GameViewModel(game.getId(), game.getTitle(), game.getDescription(),
-                                        new DeveloperViewModel(game.getDeveloper().getId(),
-                                                game.getDeveloper().getName(), game.getDeveloper().getFounded(),
-                                                game.getDeveloper().getCountry().getName())))
-                                .toList())))
+    @WithUserDetails("admin")
+    public void addStoreShouldSucceedIfAdmin() throws Exception {
+        mockMvc.perform(post("/stores/register")
+                .param("id", "8")
+                .param("name", createdStoreOne.getName())
+                .param("isLibraryOnline", createdStoreOne.getIsLibraryOnline().toString())
+                .param("linkToLibrary", createdStoreOne.getLinkToLibrary())
+                .with(csrf()))
+                .andExpect(view().name("store/add"))
                 .andReturn();
 
-        assertNotNull(mvcResult.getModelAndView());
-        @SuppressWarnings({ "unchecked", "null" })
-        List<GameViewModel> games = (List<GameViewModel>) mvcResult.getModelAndView().getModel().get("games");
-        assertEquals(gameCount, games.size());
+        mockMvc.perform(get("/stores/8"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("store/store"))
+                .andExpect(model().attribute("store",
+                        Matchers.samePropertyValuesAs(new StoreViewModel(8, createdStoreOne.getName(),
+                                createdStoreOne.getIsLibraryOnline(), createdStoreOne.getLinkToLibrary()))));
+
+        storeRepository.deleteById(nonExistingStoreId);
     }
 }

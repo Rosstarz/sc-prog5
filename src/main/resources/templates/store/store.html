@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="~{fragments :: html_head}"></head>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <thymeleaf th:replace="~{fragments :: html_head}"/>
+</head>
 <body>
-<div class="container">
-    <div th:replace="~{fragments :: menu}"></div>
+<div th:replace="~{fragments :: menu}"></div>
+<main class="container">
     <div>
         <h1 th:text="${store.name}"></h1>
         <p th:text="${store.isLibraryOnline}"></p>
         <p th:text="${store.linkToLibrary}"></p>
     </div>
-    <div th:replace="~{fragments :: footer}"></div>
-</div>
+</main>
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>
