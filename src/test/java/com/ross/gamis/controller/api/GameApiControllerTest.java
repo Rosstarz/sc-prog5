@@ -40,7 +40,7 @@ import com.ross.gamis.repository.StoreRepository;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GameApiControllerTest {
+class GameApiControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired

@@ -15,4 +15,6 @@ public interface StoreRepository extends JpaRepository<Store,Long> {
     @Query("SELECT s FROM Store s WHERE s.id = :id")
     Store getStore(Long id);
 
+    Store findTopByOrderByIdDesc();
+
 }

@@ -39,7 +39,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GameControllerTest {
+class GameControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired

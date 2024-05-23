@@ -54,7 +54,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class StoreControllerTest {
+class StoreControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -137,19 +137,21 @@ public class StoreControllerTest {
     @WithUserDetails("admin")
     public void addStoreShouldSucceedIfAdmin() throws Exception {
         mockMvc.perform(post("/stores/register")
-                .param("id", "8")
                 .param("name", createdStoreOne.getName())
                 .param("isLibraryOnline", createdStoreOne.getIsLibraryOnline().toString())
                 .param("linkToLibrary", createdStoreOne.getLinkToLibrary())
                 .with(csrf()))
                 .andExpect(view().name("store/add"))
                 .andReturn();
+        
+        Store lastSavedStore = storeRepository.findTopByOrderByIdDesc();
+        assertNotNull(lastSavedStore);
 
-        mockMvc.perform(get("/stores/8"))
+        mockMvc.perform(get("/stores/" + lastSavedStore.getId()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("store/store"))
                 .andExpect(model().attribute("store",
-                        Matchers.samePropertyValuesAs(new StoreViewModel(8, createdStoreOne.getName(),
+                        Matchers.samePropertyValuesAs(new StoreViewModel(lastSavedStore.getId(), createdStoreOne.getName(),
                                 createdStoreOne.getIsLibraryOnline(), createdStoreOne.getLinkToLibrary()))));
 
         storeRepository.deleteById(nonExistingStoreId);
