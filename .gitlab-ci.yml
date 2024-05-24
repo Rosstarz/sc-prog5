@@ -1,0 +1,60 @@
+variables:
+  POSTGRES_DB: int4t9
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: Student1234
+  POSTGRES_HOST_AUTH_METHOD: trust
+  SPRING_PROFILES_ACTIVE: testci
+  JAVA_CONTAINER_IMAGE: "gradle:8.7-jdk17-alpine"
+
+cache:
+  paths:
+    - ${CI_PROJECT_DIR}/.gradle/wrapper/
+    - ${CI_PROJECT_DIR}/.gradle/caches/
+
+stages:
+  - test
+  - build
+  - dockerize
+  - cleanup
+
+gradle-build:
+  image: ${JAVA_CONTAINER_IMAGE}
+  stage: build
+  script:
+    - echo "Building.."
+    - ./gradlew --build-cache assemble
+  artifacts:
+    paths:
+      - "build/libs/*.jar"
+
+test-job:
+  image: ${JAVA_CONTAINER_IMAGE}
+  services:
+    - postgres:16.1-alpine
+  stage: test
+  script:
+    - echo "Running tests.."
+    - echo "$SPRING_PROFILES_ACTIVE"
+    - ./gradlew -PspringProfilesActiveTests=$SPRING_PROFILES_ACTIVE check
+
+dockerize-job:
+  image: docker:latest
+  stage: dockerize
+  services:
+    - name: docker:dind
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - echo "Building docker image.."
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
+  dependencies:
+    - gradle-build
+
+cleanup-job:
+  image: ${JAVA_CONTAINER_IMAGE}
+  stage: cleanup
+  script:
+    - echo "Cleaning up.."
+    - ./gradlew clean
+  when: always
