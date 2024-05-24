@@ -27,6 +27,7 @@ gradle-build:
     paths:
       - "build/libs/*.jar"
 
+#TODO add nodejs
 test-job:
   image: ${JAVA_CONTAINER_IMAGE}
   services:
