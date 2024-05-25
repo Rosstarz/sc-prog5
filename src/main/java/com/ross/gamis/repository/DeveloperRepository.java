@@ -17,4 +17,8 @@ public interface DeveloperRepository extends JpaRepository<Developer,Long> {
 
     @Query("SELECT d FROM Developer d LEFT OUTER JOIN FETCH d.games")
     List<Developer> getDevelopersFetched();
+
+    @Query("SELECT d FROM Developer d LEFT OUTER JOIN FETCH d.games WHERE lower(d.name) LIKE :searchTerm1")
+    List<Developer> getDevelopersByNameLike(
+        String searchTerm1);
 }

@@ -12,6 +12,15 @@ public class DeveloperConverter {
         developerDto.setName(developer.getName());
         developerDto.setFounded(developer.getFounded());
         developerDto.setCountry(developer.getCountry().getName());
+        return developerDto;
+    }
+
+    public DeveloperDtoOut convertToDtoWithGames(Developer developer) {
+        DeveloperDtoOut developerDto = new DeveloperDtoOut();
+        developerDto.setId(developer.getId());
+        developerDto.setName(developer.getName());
+        developerDto.setFounded(developer.getFounded());
+        developerDto.setCountry(developer.getCountry().getName());
         if (developer.getGames() != null) {
             developerDto.setGameIds(developer.getGames().stream().map(Game::getId).toList());
         }

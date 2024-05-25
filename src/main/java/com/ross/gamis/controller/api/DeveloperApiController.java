@@ -41,18 +41,33 @@ public class DeveloperApiController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<DeveloperDtoOut>> getMethodName() {
-        List<Developer> developers = developerService.getDevelopersFetched();
-        // for (Game game : developers) {
-        //     logger.debug("Game: {}", game.toString());
-        // }
-        List<DeveloperDtoOut> developerDtos = developers.stream()
-            .map(developerConverter::convertToDto)
-            .toList();
-        // for (GameDtoOut gameDto : gameDtos) {
-        //     logger.debug("GameDto: {}", gameDto.toString());
-        // }
-        return new ResponseEntity<>(developerDtos, HttpStatus.OK);
+    public ResponseEntity<List<DeveloperDtoOut>> searchDevelopers(@RequestParam(required = false) String search) {
+        if (search == null) {
+            List<Developer> developers = developerService.getDevelopersFetched();
+            // for (Game game : developers) {
+            //     logger.debug("Game: {}", game.toString());
+            // }
+            List<DeveloperDtoOut> developerDtos = developers.stream()
+            .map(developerConverter::convertToDtoWithGames)
+                .toList();
+            // for (GameDtoOut gameDto : gameDtos) {
+            //     logger.debug("GameDto: {}", gameDto.toString());
+            // }
+            return new ResponseEntity<>(developerDtos, HttpStatus.OK);
+        } else {
+            List<Developer> developers = developerService.searchDevelopersByNameOrCountry(search);
+            if (developers.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                // for (Developer dev : developers) {
+                //     logger.debug("Dev: {}", dev.toString());
+                // }
+                List<DeveloperDtoOut> developerDtos = developers.stream()
+                .map(developerConverter::convertToDto)
+                .toList();
+                return new ResponseEntity<>(developerDtos, HttpStatus.OK);
+            }
+        }
     }
     
     @PostMapping()
@@ -61,8 +76,6 @@ public class DeveloperApiController {
         logger.debug("Developer: {}", developer.toString());
         return new ResponseEntity<>(developerConverter.convertToDto(developer), HttpStatus.CREATED);
     }
-
-    // TODO search all developers
 
     @GetMapping("/countries")
     public ResponseEntity<Country[]> getCountryList() {
