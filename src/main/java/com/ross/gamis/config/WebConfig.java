@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
@@ -42,12 +43,14 @@ public class WebConfig implements WebMvcConfigurer {
         return LoggerFactory.getLogger(LogRunner.class);
     }
 
-    // @Override
-    // public void addCorsMappings(CorsRegistry registry) {
-    //     registry.addMapping("/api/**")
-    //             .allowedOrigins("http://172.19.0.1:9003")
-    //             .allowedMethods(
-    //                     HttpMethod.GET.name(),
-    //                     HttpMethod.POST.name());
-    // }
+    // Cross-Origin can be ignored inside the client application at
+    // webpack.config.js - proxy: changeOrigin: true
+    @Override
+    public void addCorsMappings(@NonNull CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://prog5-client:9000")
+                .allowedMethods(
+                        HttpMethod.GET.name(),
+                        HttpMethod.POST.name());
+    }
 }

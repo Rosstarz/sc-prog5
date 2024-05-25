@@ -8,8 +8,8 @@ variables:
 
 cache:
   paths:
-    - ${CI_PROJECT_DIR}/.gradle/wrapper/
-    - ${CI_PROJECT_DIR}/.gradle/caches/
+    - ${CI_PROJECT_DIR}/.gradle/
+    - ${CI_PROJECT_DIR}/build/
 
 stages:
   - test
@@ -37,6 +37,10 @@ test-job:
     - echo "Running tests.."
     - echo "$SPRING_PROFILES_ACTIVE"
     - ./gradlew -PspringProfilesActiveTests=$SPRING_PROFILES_ACTIVE check
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
 
 dockerize-job:
   image: docker:latest
