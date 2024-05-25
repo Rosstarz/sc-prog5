@@ -106,14 +106,14 @@ public class Developer {
         this.games = games;
     }
 
-    // @Override
-    // public String toString() {
-    //     return "Developer{" +
-    //             "id=" + id +
-    //             ", name='" + name + '\'' +
-    //             ", founded=" + founded +
-    //             ", location=" + location +
-    //             ", games=" + games +
-    //             '}';
-    // }
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", founded=" + founded +
+                ", country=" + country +
+                ", games=" + games +
+                '}';
+    }
 }

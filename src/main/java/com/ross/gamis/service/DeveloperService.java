@@ -26,4 +26,9 @@ public class DeveloperService {
     public List<Developer> getDevelopersFetched() {
         return developerRepository.getDevelopersFetched();
     }
+
+    public Developer addDeveloper(Developer developer) {
+        Developer savedDeveloper = developerRepository.save(developer);
+        return savedDeveloper;
+    }
 }

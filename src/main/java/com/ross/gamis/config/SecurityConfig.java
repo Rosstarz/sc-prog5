@@ -34,9 +34,11 @@ public class SecurityConfig {
                         .permitAll()
                     .requestMatchers(
                             antMatcher(HttpMethod.GET, "/api/games/**"),
-                            antMatcher(HttpMethod.GET, "/api/developers/**"))
-                            // ,
-                            // antMatcher(HttpMethod.POST, "/api/issues")) // Specifically allowing this for the separate client
+                            // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
+                            antMatcher(HttpMethod.GET, "/api/developers/**")
+                            // )
+                            ,
+                            antMatcher(HttpMethod.POST, "/api/developers/**")) // Allowed for client application
                         .permitAll()
                     .requestMatchers(antMatcher(HttpMethod.GET, "/"))
                         .permitAll()
@@ -44,9 +46,10 @@ public class SecurityConfig {
                         .authenticated()
                         // .permitAll()
             )
-            // .csrf(csrf -> csrf.ignoringRequestMatchers(
-            //         antMatcher(HttpMethod.POST, "/api/issues") // Disable specifically for the client application
-            // ))
+            .csrf(csrf -> csrf.ignoringRequestMatchers(
+                    // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
+                    antMatcher(HttpMethod.POST, "/api/developers/**") // Disabled for client application
+            ))
             .formLogin(formLogin ->
                 formLogin
                     .loginPage("/login")
