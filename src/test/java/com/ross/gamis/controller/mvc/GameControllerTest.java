@@ -79,8 +79,6 @@ class GameControllerTest {
         createdStoreOne = storeRepository.save(new Store("Store 1", true, "https://store1.com/some/link/here"));
         createdStoreTwo = storeRepository.save(new Store("Store 2", true, "store1.com/here"));
         createdStoreThree = storeRepository.save(new Store("Store 3", false));
-        // userDetails = new CustomUserDetails("tester", "password", List.of(new
-        // SimpleGrantedAuthority(UserRole.ADMIN.getCode())), userId);
     }
 
     @AfterAll

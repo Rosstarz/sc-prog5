@@ -1,6 +1,5 @@
 package com.ross.gamis.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,38 +42,20 @@ class GameRepositoryTest {
     @Autowired
     private GameStoreRepository gameStoreRepository;
 
-    // private long gameIdNonExistent = 9999L;
-    // private int gameCount = 5;
-    // private long userId = 9999L;
-
     private Game createdGame;
     private Developer createdDeveloper;
     private Store createdStoreOne;
-    private Store createdStoreTwo;
-    private Store createdStoreThree;
     private GameStore createdGameStoreOne;
-    private GameStore createdGameStoreTwo;
-    private GameStore createdGameStoreThree;
-    // private CustomUserDetails userDetails;
 
     @BeforeAll
     public void setupAll() {
-        // Remove all games so that we can have a known state
-        // gameStoreRepository.deleteAll();
-        // gameRepository.deleteAll();
-        // Create entities for creating a new Game
         createdDeveloper = developerRepository.save(new Developer("Developer 1", LocalDate.now(), Country.BRAZIL));
         createdStoreOne = storeRepository.save(new Store("Store 1", true, "https://store1.com/some/link/here"));
-        // createdStoreTwo = storeRepository.save(new Store("Store 2", true, "store1.com/here"));
-        // createdStoreThree = storeRepository.save(new Store("Store 3", false));
-        // userDetails = new CustomUserDetails("tester", "password", List.of(new SimpleGrantedAuthority(UserRole.ADMIN.getCode())), userId);
     }
     
     @AfterAll
     public void tearDownAll() {
         storeRepository.delete(createdStoreOne);
-        // storeRepository.delete(createdStoreTwo);
-        // storeRepository.delete(createdStoreThree);
         developerRepository.delete(createdDeveloper);
     }
 
@@ -83,15 +64,11 @@ class GameRepositoryTest {
         createdGame = gameRepository.save(
             new Game("Game title", "Game desc", createdDeveloper));
         createdGameStoreOne = gameStoreRepository.save(new GameStore(createdGame, createdStoreOne, LocalDateTime.now(), 10.0));
-        // createdGameStoreTwo = gameStoreRepository.save(new GameStore(createdGame, createdStoreTwo, LocalDateTime.now(), 9.99));
-        // createdGameStoreThree = gameStoreRepository.save(new GameStore(createdGame, createdStoreThree, LocalDateTime.now(), 7.99));
     }
 
     @AfterEach
     public void tearDownEach() {
         gameStoreRepository.delete(createdGameStoreOne);
-        // gameStoreRepository.delete(createdGameStoreTwo);
-        // gameStoreRepository.delete(createdGameStoreThree);
         gameRepository.delete(createdGame);
     }
 

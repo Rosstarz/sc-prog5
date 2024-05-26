@@ -56,7 +56,6 @@ class GameApiControllerUnitTest {
     private GameService gameService;
 
     private long gameIdNonExistent = 9999L;
-    // private int gameCount = 5;
     private long userId = 9999L;
 
     private Game createdGame;

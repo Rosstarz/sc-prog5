@@ -1,8 +1,6 @@
 package com.ross.gamis.controller.mvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
@@ -16,40 +14,25 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ross.gamis.controller.mvc.viewmodel.DeveloperViewModel;
-import com.ross.gamis.controller.mvc.viewmodel.GameViewModel;
 import com.ross.gamis.controller.mvc.viewmodel.StoreViewModel;
 import com.ross.gamis.domain.Country;
 import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.domain.GameStore;
 import com.ross.gamis.domain.Store;
-import com.ross.gamis.domain.UserGameStore;
 import com.ross.gamis.repository.DeveloperRepository;
 import com.ross.gamis.repository.GameRepository;
 import com.ross.gamis.repository.GameStoreRepository;
 import com.ross.gamis.repository.StoreRepository;
 import com.ross.gamis.repository.UserGameStoreRepository;
-import com.ross.gamis.service.GameService;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-// import static org.mockito.Mockito.*;
-// import static org.mockito.BDDMockito.*;
-// import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-
-import org.hamcrest.MatcherAssert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -60,8 +43,6 @@ class StoreControllerTest {
     @Autowired
     private GameRepository gameRepository;
     @Autowired
-    private GameService gameService;
-    @Autowired
     private DeveloperRepository developerRepository;
     @Autowired
     private StoreRepository storeRepository;
@@ -70,7 +51,6 @@ class StoreControllerTest {
     @Autowired
     private UserGameStoreRepository userGameStoreRepository;
 
-    private int gameCount = 3;
     private long nonExistingStoreId = 9999L;
 
     private Game createdGame;
@@ -95,8 +75,6 @@ class StoreControllerTest {
         createdStoreOne = storeRepository.save(new Store("Store 1", true, "https://store1.com/some/link/here"));
         createdStoreTwo = storeRepository.save(new Store("Store 2", true, "store1.com/here"));
         createdStoreThree = storeRepository.save(new Store("Store 3", false));
-        // userDetails = new CustomUserDetails("tester", "password", List.of(new
-        // SimpleGrantedAuthority(UserRole.ADMIN.getCode())), userId);
     }
 
     @AfterAll
@@ -143,7 +121,7 @@ class StoreControllerTest {
                 .with(csrf()))
                 .andExpect(view().name("store/add"))
                 .andReturn();
-        
+
         Store lastSavedStore = storeRepository.findTopByOrderByIdDesc();
         assertNotNull(lastSavedStore);
 
@@ -151,8 +129,9 @@ class StoreControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("store/store"))
                 .andExpect(model().attribute("store",
-                        Matchers.samePropertyValuesAs(new StoreViewModel(lastSavedStore.getId(), createdStoreOne.getName(),
-                                createdStoreOne.getIsLibraryOnline(), createdStoreOne.getLinkToLibrary()))));
+                        Matchers.samePropertyValuesAs(
+                                new StoreViewModel(lastSavedStore.getId(), createdStoreOne.getName(),
+                                        createdStoreOne.getIsLibraryOnline(), createdStoreOne.getLinkToLibrary()))));
 
         storeRepository.deleteById(nonExistingStoreId);
     }

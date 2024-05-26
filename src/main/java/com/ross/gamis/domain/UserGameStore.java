@@ -96,7 +96,7 @@ public class UserGameStore {
     public String toString() {
         return "UserGameStore [id=" + id 
         + ", userId=" + user.getId()
-        + ", gameStore=" + gameStore.getId()
+        + ", gameStoreId=" + gameStore.getId()
         + ", isOwned=" + isOwned
         + ", ownedSetDate=" + ownedSetDate 
         + "]";

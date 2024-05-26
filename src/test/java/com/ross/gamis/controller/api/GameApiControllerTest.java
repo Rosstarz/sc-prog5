@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-// import java.util.List;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-// import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,12 +28,10 @@ import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.domain.GameStore;
 import com.ross.gamis.domain.Store;
-// import com.ross.gamis.domain.UserRole;
 import com.ross.gamis.repository.DeveloperRepository;
 import com.ross.gamis.repository.GameRepository;
 import com.ross.gamis.repository.GameStoreRepository;
 import com.ross.gamis.repository.StoreRepository;
-// import com.ross.gamis.security.CustomUserDetails;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,7 +50,6 @@ class GameApiControllerTest {
 
     private long gameIdNonExistent = 9999L;
     private int gameCount = 5;
-    // private long userId = 9999L;
 
     private Game createdGame;
     private Developer createdDeveloper;
@@ -64,18 +59,13 @@ class GameApiControllerTest {
     private GameStore createdGameStoreOne;
     private GameStore createdGameStoreTwo;
     private GameStore createdGameStoreThree;
-    // private CustomUserDetails userDetails;
 
     @BeforeAll
     public void setupAll() {
-        // Remove all games so that we can have a known state
-        // gameRepository.deleteAll();
-        // Create entities for creating a new Game
         createdDeveloper = developerRepository.save(new Developer("Developer 1", LocalDate.now(), Country.BRAZIL));
         createdStoreOne = storeRepository.save(new Store("Store 1", true, "https://store1.com/some/link/here"));
         createdStoreTwo = storeRepository.save(new Store("Store 2", true, "store1.com/here"));
         createdStoreThree = storeRepository.save(new Store("Store 3", false));
-        // userDetails = new CustomUserDetails("tester", "password", List.of(new SimpleGrantedAuthority(UserRole.ADMIN.getCode())), userId);
     }
     
     @AfterAll

@@ -11,12 +11,9 @@ import static org.mockito.Mockito.verify;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,28 +31,12 @@ import com.ross.gamis.repository.GameRepository;
 class GameServiceUnitTest {
     @MockBean
     private GameRepository gameRepository;
-    // @Autowired
-    // private DeveloperRepository developerRepository;
     @MockBean
     private DeveloperRepository developerMockRepository;
     @Autowired
     private GameService gameService;
 
     private long gameIdNonExistent = 9999L;
-    // private int gameCount = 5;
-    // private long userId = 9999L;
-
-    private Developer createdDeveloper;
-
-    // @BeforeAll
-    // public void setupAll() {
-    //     createdDeveloper = developerRepository.save(new Developer("Developer 1", LocalDate.now(), Country.BRAZIL));
-    // }
-    
-    // @AfterAll
-    // public void tearDownAll() {
-    //     developerRepository.delete(createdDeveloper);
-    // }
 
     @Test
     void updateGameFailsWhenGameDoesntExist() {
