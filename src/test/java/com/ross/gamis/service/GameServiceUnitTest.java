@@ -22,7 +22,6 @@ import com.ross.gamis.controller.api.dto.game.in.GameDtoIn;
 import com.ross.gamis.domain.Country;
 import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
-import com.ross.gamis.repository.DeveloperRepository;
 import com.ross.gamis.repository.GameRepository;
 
 
@@ -31,8 +30,6 @@ import com.ross.gamis.repository.GameRepository;
 class GameServiceUnitTest {
     @MockBean
     private GameRepository gameRepository;
-    @MockBean
-    private DeveloperRepository developerMockRepository;
     @Autowired
     private GameService gameService;
 
@@ -58,7 +55,6 @@ class GameServiceUnitTest {
         var developer = new Developer("Developer 2", LocalDate.now(), Country.BRAZIL);
         var game = new Game("My Game", "It's mine", developer);
         game.setId(gameIdNonExistent);
-        // given(developerMockRepository.findById(developer.getId())).willReturn(Optional.of(developer));
         given(gameRepository.getGameFetched(gameIdNonExistent)).willReturn(Optional.of(game));
 
         // Act
