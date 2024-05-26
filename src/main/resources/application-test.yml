@@ -21,7 +21,7 @@ spring:
 logging:
   level:
     com:
-      ross: DEBUG
+      ross: TRACE
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: TRACE

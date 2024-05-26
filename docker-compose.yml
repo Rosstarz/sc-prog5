@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   prog5-db:
@@ -26,7 +26,10 @@ services:
       - '5444:5432'
     volumes:
       - prog5_pgdata_test:/var/lib/postgresql/data
+      - prog5_pglogs_test:/var/log/postgresql/
+    command: "-c logging_collector=on"
 
 volumes:
   prog5_pgdata:
   prog5_pgdata_test:
+  prog5_pglogs_test:
