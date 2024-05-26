@@ -44,7 +44,12 @@ public class GameController {
                 // , game.getStores().stream().map(gameStore -> gameStore.getId()).toList()
                 .toList()
         );
-        // modelAndVideo
+        modelAndView.addObject("developers", 
+            developerService.getDevelopers()
+                .stream()
+                .map(developer -> new DeveloperViewModel(developer.getId(), developer.getName(), developer.getFounded(), developer.getCountry().getName()))
+                .toList()
+        );
         return modelAndView;
     }
 
@@ -55,12 +60,12 @@ public class GameController {
         return "game/game";
     }
 
-    @GetMapping("/add")
-    public String showAddGame(Model model){
-        Game game = new Game();
-        model.addAttribute("addGameForm", game);
-        return "game/add";
-    }
+    // @GetMapping("/add")
+    // public String showAddGame(Model model){
+    //     Game game = new Game();
+    //     model.addAttribute("addGameForm", game);
+    //     return "game/add";
+    // }
 
     @PostMapping("/register")
     public String registerNewGame(@Valid @ModelAttribute Game game, BindingResult errors, Model model){

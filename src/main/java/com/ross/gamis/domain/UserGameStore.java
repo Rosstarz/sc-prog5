@@ -13,7 +13,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_game_store", uniqueConstraints = {@UniqueConstraint(columnNames = {"game_store_id", "user_id"})})
+@Table(name = "user_game_store", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "game_store_id"})})
 public class UserGameStore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
