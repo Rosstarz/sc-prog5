@@ -25,12 +25,8 @@
 			"ppa": true,
 			"version": "os-provided"
 		},
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-		// "ghcr.io/devcontainers/features/terraform:1": {},
-		// "ghcr.io/dhoeric/features/google-cloud-cli:1": {},
-		// "ghcr.io/joshuanianji/devcontainer-features/gcloud-cli-persistence:1": {},
-		// "ghcr.io/devcontainers/features/python:1": {},
-		// "ghcr.io/devcontainers-contrib/features/ansible:2": {}
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/devcontainers/features/node:1": {}
 	},
 
 	// "mounts": [
@@ -71,7 +67,8 @@
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
 				"GitLab.gitlab-workflow",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	},

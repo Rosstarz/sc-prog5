@@ -1,5 +1,5 @@
-import { header, token } from "../util/csrf.js";
-import { userGamesOwned } from "../util/user.js";
+import { header, token } from "./util/csrf.js";
+import { userGamesOwned } from "./util/user.js";
 
 //
 // Get Game
@@ -14,9 +14,7 @@ async function getGame() {
 
     if (response.status === 200) {
         const data = await response.json();
-        const gamesOwned = await userGamesOwned();
-        console.log(gamesOwned);
-
+        
         // Set game title and description
         const gameTitle = document.getElementById('game-title');
         const editGameTitle = document.getElementById('edit-game-title');
@@ -31,8 +29,10 @@ async function getGame() {
         const developerTitle = document.getElementById('developer-title');
         const editDeveloper = document.getElementById('edit-developer');
         developerTitle.innerHTML = data.developer.name + ' (' + data.developer.country + ')';
-
+        
         // Set game store list
+        const gamesOwned = await userGamesOwned();
+        console.log(gamesOwned);
         const storeList = document.getElementById('store-list');
         storeList.innerHTML = '';
         data.stores.forEach(store => {
@@ -42,17 +42,19 @@ async function getGame() {
             storeItem.className = 'store-item';
             storeItem.id = 'gamestore_' + store.id;
             storeItem.innerHTML = '<span><a href="/stores/' + store.store.id + '">' + store.store.name + '</a> - ' + store.price + '$</span>';
-            if (gamesOwned.find((userGame) => userGame.gameStore.gameId == currGameId && userGame.gameStore.storeId == store.store.id)){
-                console.log("Owned on " + store.store.name);
-                storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-success isOwnedButton">Owned</button>';
-            } else {
-                console.log("Not owned on " + store.store.name);
-                storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-danger isOwnedButton">Add</button>';
+            if (gamesOwned){
+                if (gamesOwned.find((userGame) => userGame.gameStore.gameId == currGameId && userGame.gameStore.storeId == store.store.id)){
+                    console.log("Owned on " + store.store.name);
+                    storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-success isOwnedButton">Owned</button>';
+                } else {
+                    console.log("Not owned on " + store.store.name);
+                    storeItem.innerHTML += '<button type="button" class="btn btn-sm btn-danger isOwnedButton">Add</button>';
+                }
+                setOwnedButtons();
             }
             storeItemLi.appendChild(storeItem);
             storeList.appendChild(storeItemLi);
         });
-        setOwnedButtons();
     } else {
         window.location.href = "/404";
     }

@@ -8,17 +8,11 @@ plugins {
 group = "com.ross"
 version = "0.0.1-SNAPSHOT"
 val springProfilesActiveTests: String by project
+val springProfilesActiveDev: String by project
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
-
-// tasks.bootJar {
-// //     // Use Spring Boot DevTool only when we run Gradle bootRun task
-// //     classpath = sourceSets.main.runtimeClasspath + configurations.developmentOnly
-// // 	sourceResources = sourceSets.main
-//     excludeDevtools = false
-// }
 
 repositories {
     mavenCentral()
@@ -40,7 +34,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     // CSS
-    implementation("org.webjars:bootstrap:5.3.2")
+    // implementation("org.webjars:bootstrap:5.3.2")
 
     // Utils
     // implementation("com.google.code.gson:gson:2.10.1")
@@ -66,8 +60,14 @@ dependencies {
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 }
 
-tasks.withType<Test> {
-    println("[INFO] Using spring profile: $springProfilesActiveTests")
-    systemProperty("spring.profiles.active", springProfilesActiveTests)
-    useJUnitPlatform()
+// tasks.withType<Test> {
+//     println("[INFO] Using spring profile: $springProfilesActiveTests")
+//     // systemProperty("spring.profiles.active", springProfilesActiveTests)
+//     useJUnitPlatform()
+// }
+
+tasks.named<Copy>("processResources") {
+    // println("[INFO] Using spring profile: $springProfilesActiveDev")
+    // systemProperty("spring.profiles.active", springProfilesActiveDev)
+    dependsOn("npm_run_build")
 }

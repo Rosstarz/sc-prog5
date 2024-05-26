@@ -1,4 +1,4 @@
-import { header, token } from "../util/csrf.js";
+import { header, token } from "./util/csrf.js";
 
 // 
 // Add Game to DB

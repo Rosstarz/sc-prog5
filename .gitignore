@@ -4,6 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.temp/
+node_modules/
 
 ### STS ###
 .apt_generated
@@ -38,3 +40,7 @@ out/
 
 ###
 db/
+
+###
+src/main/resources/static/js/
+src/main/resources/static/css/
