@@ -5,7 +5,7 @@ server:
 
 spring:
     datasource:
-        url: jdbc:postgresql://postgres:5432/int4t9
+        url: jdbc:postgresql://postgres:5432/prog5
         username: postgres
         password: Student1234
     sql:
@@ -13,9 +13,9 @@ spring:
             mode: always
 
 logging:
-    level:
-        com:
-            ross: WARN
-        org:
-            hibernate:
-                SQL: WARN
+  level:
+    com:
+      ross: TRACE
+    org:
+      hibernate:
+        SQL: TRACE

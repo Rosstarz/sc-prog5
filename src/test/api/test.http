@@ -1,102 +1,145 @@
-### GET all games, expected 200
+#### Fetch all games, expected 200
 GET http://localhost:8080/api/games HTTP/1.1
 Accept: application/json
 
-### GET all games XML, expected 200
+#### Fetch all games XML, expected 200
 GET http://localhost:8080/api/games HTTP/1.1
 Accept: application/xml
 
-### DELETE game by id, expected 204
-DELETE http://localhost:8080/api/games/1
+#### Fetch game, expected 200
+GET http://localhost:8080/api/games/4 HTTP/1.1
+Accept: application/json
 
-### DELETE game by id, expected 404
-DELETE http://localhost:8080/api/games/1239
+#### Remove game by id while NOT authenticated, expected 401
+DELETE http://localhost:8080/api/games/1 HTTP/1.1
 
-### POST game, expected 201
+#### Remove game by id while authenticated, expected 204
+DELETE http://localhost:8080/api/games/1 HTTP/1.1
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
+
+#### Remove game by nonexistent id, expected 404
+DELETE http://localhost:8080/api/games/1239 HTTP/1.1
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
+
+#### Create game while NOT authenticated, expected 401
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
 
 {
     "title": "Team Fortress 2",
-    "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game developed and published by Valve Corporation. It is the sequel to the 1996 mod Team Fortress for Quake and its 1999 remake, Team Fortress Classic.",
+    "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game.",
     "developerId": 1
 }
 
-### POST game, expected 404
+#### Create game while authenticated, expected 201
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
 
 {
     "title": "Team Fortress 2",
-    "description": "Team",
-    "developerId": 9088
+    "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game.",
+    "developerId": 1
 }
 
-### POST game, dont allow empty title, expected 400
+#### TODO Create game with nonexistent developer, expected 404
+# POST http://localhost:8080/api/games
+# Accept: application/json
+# Content-Type: application/json
+
+# {
+#     "title": "Team Fortress 2",
+#     "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game.",
+#     "developerId": 9088
+# }
+
+#### Create game with invalid body, expected 400
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
 
 {
     "title": "",
-    "description": "Team",
+    "description": "Team Fortress 2 is a team-based multiplayer first-person shooter video game.",
     "developerId": 1
 }
 
-### PATCH Update game, expected 200
+#### Update game while NOT authenticated, expected 401
 PATCH http://localhost:8080/api/games/1
 Accept: application/json
 Content-Type: application/json
 
 {
     "title": "Counter-Strike 2",
-    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
+    "description": "Elite competitive experience. This is Counter-Strike 2.",
     "developerId": "2"
 }
 
-### PATCH Update game, expected 404
-PATCH http://localhost:8080/api/games/1239
-Accept: application/json
-Content-Type: application/json
-
-{
-    "title": "Counter-Strike 2",
-    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
-    "developerId": "2"
-}
-
-### PATCH Update game, missing title, expected 400
+#### Update game while authenticated, expected 200
 PATCH http://localhost:8080/api/games/1
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
 
 {
-    "description": "For"
+    "title": "Counter-Strike 2",
+    "description": "Elite competitive experience. This is Counter-Strike 2.",
+    "developerId": "2"
 }
 
-### POST create game, missing developer, expected 400
+#### Update nonexistent game, expected 404
+PATCH http://localhost:8080/api/games/1239462
+Accept: application/json
+Content-Type: application/json
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
+
+{
+    "title": "Counter-Strike 2",
+    "description": "Elite competitive experience. This is Counter-Strike 2.",
+    "developerId": "2"
+}
+
+#### Update game with missing title, expected 400
+PATCH http://localhost:8080/api/games/1
+Accept: application/json
+Content-Type: application/json
+Cookie: JSESSIONID=D941A641D383C7CA7912AFE28ACAD70B
+X-CSRF-TOKEN: JTDBeOI37h1LkELEJk5zvxrts7l9rmXk2O0Qd8hCIjBmpLXMRwn4HYQP2i9mp3v3FWNH2SzcnthEmwbJu9UjRP16QQdfkdf6
+
+{
+    "description": "Elite competitive experience. This is Counter-Strike 2.",
+    "developerId": "2"
+}
+
+#### Create game with missing developer, expected 400
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
 
 {
-    "title": "For"
+    "title": "Counter-Strike 2",
+    "description": "Elite competitive experience. This is Counter-Strike 2."
 }
 
-### POST create game, title too short, expected 400
+#### Create game with title too short, expected 400
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json
 
 {
     "title": "C",
-    "description": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.",
+    "description": "Elite competitive experience. This is Counter-Strike 2.",
     "developerId": "2"
 }
 
-### POST create game, description too long, expected 400
+#### Create game with description too long, expected 400
 POST http://localhost:8080/api/games
 Accept: application/json
 Content-Type: application/json

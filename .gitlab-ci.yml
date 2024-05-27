@@ -1,5 +1,5 @@
 variables:
-  POSTGRES_DB: int4t9
+  POSTGRES_DB: prog5
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: Student1234
   POSTGRES_HOST_AUTH_METHOD: trust

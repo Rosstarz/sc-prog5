@@ -60,7 +60,7 @@ public class SecurityConfig {
                         if (request.getRequestURI().startsWith("/api")) {
                             response.setStatus(HttpStatus.UNAUTHORIZED.value());
                         } else if (request.getRequestURI().startsWith("/error")) {
-                            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
                         } else {
                             response.sendRedirect(request.getContextPath() + "/login");
                         }

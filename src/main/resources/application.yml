@@ -10,7 +10,7 @@ spring:
       data-locations: "classpath:/sql/data.sql"
       mode: never
   thymeleaf:
-    # cache: true
+    cache: true
     prefix: classpath:/templates/
     suffix: .html
   jpa:
@@ -19,7 +19,7 @@ spring:
       ddl-auto: create
     defer-datasource-initialization: true
     open-in-view: false
-  # datasource:
-  #   password: "Student1234"
-  #   username: "postgres"
-  #   url: "jdbc:postgresql://int4t9-db:5432/int4t9"
+  datasource:
+    password: "Student1234"
+    username: "postgres"
+    url: "jdbc:postgresql://localhost:5443/prog"
