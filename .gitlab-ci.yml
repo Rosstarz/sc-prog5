@@ -36,6 +36,8 @@ test-job:
   script:
     - echo "Running tests.."
     - echo "$SPRING_PROFILES_ACTIVE"
+    - node --version
+    - npm --version
     - ./gradlew -PspringProfilesActiveTests=$SPRING_PROFILES_ACTIVE check
   artifacts:
     when: always
