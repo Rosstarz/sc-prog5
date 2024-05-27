@@ -1,5 +1,6 @@
 import { header, token } from './util/csrf.js'
 import { Modal } from 'bootstrap'
+import validator from 'validator'
 
 // Add Game to DB
 const title = document.getElementById('title')
@@ -11,7 +12,26 @@ const bootstrapModal = new Modal(addModal)
 const gamesTableBody = document.getElementById('gamesTableBody')
 addButton?.addEventListener('click', addNewGame)
 
+function validateNewGame() {
+    if (!validator.isAlphanumeric(title.value) || validator.isEmpty(title.value)) {
+        alert('Title is invalid!')
+        return false
+    }
+    if (!validator.isAlphanumeric(description.value) || validator.isEmpty(description.value)) {
+        alert('Description is invalid!')
+        return false
+    }
+    if (developer.selectedIndex === 0) {
+        alert('Developer is required!')
+        return false
+    }
+    return true
+}
+
 async function addNewGame() {
+    if (!validateNewGame()) {
+        return
+    }
     const response = await fetch('/api/games', {
         method: 'POST',
         headers: {
