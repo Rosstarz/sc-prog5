@@ -1,3 +1,8 @@
+server:
+    error:
+        whitelabel.enabled: true
+        include-message: always
+
 spring:
     datasource:
         url: jdbc:postgresql://postgres:5432/int4t9
@@ -6,3 +11,11 @@ spring:
     sql:
         init:
             mode: always
+
+logging:
+    level:
+        com:
+            ross: WARN
+        org:
+            hibernate:
+                SQL: WARN

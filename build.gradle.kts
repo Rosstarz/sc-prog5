@@ -61,14 +61,12 @@ dependencies {
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 }
 
-tasks.withType<Test> {
-//     println("[INFO] Using spring profile: $springProfilesActiveTests")
-//     // systemProperty("spring.profiles.active", springProfilesActiveTests)
+tasks.test {
+    println("[INFO] Using spring profile: $springProfilesActiveTests")
+    systemProperty("spring.profiles.active", springProfilesActiveTests)
     useJUnitPlatform()
 }
 
 tasks.named<Copy>("processResources") {
-    // println("[INFO] Using spring profile: $springProfilesActiveDev")
-    // systemProperty("spring.profiles.active", springProfilesActiveDev)
     dependsOn("npm_run_build")
 }
