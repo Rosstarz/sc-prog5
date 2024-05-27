@@ -20,52 +20,57 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-            auths -> auths
-                    .requestMatchers(regexMatcher("^/(404|games|games/.+|developers|developers/.+|stores|stores/.+|game-csv)$"),
-                            regexMatcher(HttpMethod.GET, "^/login\\?.*"),
-                            regexMatcher(HttpMethod.GET, "^/error"))
+                auths -> auths
+                        .requestMatchers(
+                                regexMatcher(
+                                        "^/(404|games|games/.+|developers|developers/.+|stores|stores/.+|game-csv)$"),
+                                regexMatcher(HttpMethod.GET, "^/login\\?.*"),
+                                regexMatcher(HttpMethod.GET, "^/error"))
                         .permitAll()
-                    .requestMatchers(
-                            antMatcher(HttpMethod.GET, "/js/**"),
-                            antMatcher(HttpMethod.GET, "/css/**"),
-                            antMatcher(HttpMethod.GET, "/images/**"),
-                            antMatcher(HttpMethod.GET, "/webjars/**"),
-                            regexMatcher(HttpMethod.GET, "\\.ico$"))
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/js/**"),
+                                antMatcher(HttpMethod.GET, "/css/**"),
+                                antMatcher(HttpMethod.GET, "/images/**"),
+                                antMatcher(HttpMethod.GET, "/webjars/**"),
+                                regexMatcher(HttpMethod.GET, "\\.ico$"))
                         .permitAll()
-                    .requestMatchers(
-                            antMatcher(HttpMethod.GET, "/api/games/**"),
-                            // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
-                            antMatcher(HttpMethod.GET, "/api/developers/**")
-                            // )
-                            ,
-                            antMatcher(HttpMethod.POST, "/api/developers/**")) // Allowed for client application
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/api/games/**"),
+                                // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
+                                antMatcher(HttpMethod.GET, "/api/developers/**")
+                                // )
+                                ,
+                                antMatcher(HttpMethod.POST, "/api/developers/**")) // Allowed for client application
                         .permitAll()
-                    .requestMatchers(antMatcher(HttpMethod.GET, "/"))
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/"))
                         .permitAll()
-                    .anyRequest()
+                        .anyRequest()
                         .authenticated()
-                        // .permitAll()
-            )
-            .csrf(csrf -> csrf.ignoringRequestMatchers(
-                    // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
-                    antMatcher(HttpMethod.POST, "/api/developers/**") // Disabled for client application
-            ))
-            .formLogin(formLogin ->
-                formLogin
-                    .loginPage("/login")
-                    .permitAll())
-            .exceptionHandling(exceptionHandling ->
-                exceptionHandling.authenticationEntryPoint(
-                    (request, response, exception) -> {
-                        if (request.getRequestURI().startsWith("/api")) {
-                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                        } else if (request.getRequestURI().startsWith("/error")) {
-                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                        } else {
-                            response.sendRedirect(request.getContextPath() + "/login");
-                        }
-                    })
-            );
+        // .permitAll()
+        )
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        // antMatcher(HttpMethod.POST, "/api/games/**"), // testing
+                        antMatcher(HttpMethod.POST, "/api/developers/**") // Disabled for client application
+                ))
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .permitAll())
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
+                        (request, response, exception) -> {
+                            if (request.getRequestURI().startsWith("/api")) {
+                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                            } else if (request.getRequestURI().startsWith("/error")) {
+                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                            } else {
+                                response.sendRedirect(request.getContextPath() + "/login");
+                            }
+                        }))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll());
         return http.build();
     }
 

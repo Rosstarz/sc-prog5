@@ -35,7 +35,7 @@ java -jar build/libs/gamis-0.1.0.jar
 ```
 
 #### Test instructions
-```
+```bash
 ./gradlew test
 ```
 
@@ -689,5 +689,5 @@ JavaScript dependencies
   - client-side application
 
 ## Week 12 - CI
-TODO Add a markdown hyperlink to a test report of a recent (successful) pipeline on the GitLab website.
-[]()
+
+[Test report of a recent pipeline](https://gitlab.com/kdg-ti/programming-5/projects-23-24/acs202/rostislav.rucka/programming-5/-/pipelines/1307579556/test_report?job_name=test-job)
