@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.ross"
-version = "0.0.1-SNAPSHOT"
+version = "0.1.0"
 val springProfilesActiveTests: String by project
 val springProfilesActiveDev: String by project
 

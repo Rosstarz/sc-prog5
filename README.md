@@ -29,7 +29,9 @@ A Java Spring Web Application for managing your video game library across differ
 
 #### Build and run instructions
 ```bash
-TODO
+docker compose up -d
+./gradlew build
+java -jar build/libs/gamis-0.1.0.jar
 ```
 
 #### Test instructions
