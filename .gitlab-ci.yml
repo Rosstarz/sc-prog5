@@ -4,7 +4,8 @@ variables:
   POSTGRES_PASSWORD: Student1234
   POSTGRES_HOST_AUTH_METHOD: trust
   SPRING_PROFILES_ACTIVE: testci
-  JAVA_CONTAINER_IMAGE: "gradle:8.7-jdk17-alpine"
+  # JAVA_CONTAINER_IMAGE: "gradle:8.7-jdk17-alpine"
+  JAVA_CONTAINER_IMAGE: "larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine"
 
 cache:
   paths:
