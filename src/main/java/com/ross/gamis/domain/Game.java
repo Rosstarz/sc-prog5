@@ -102,8 +102,6 @@ public class Game {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", developerId=" + developer.getId() +
-                ", stores.size=" + stores.size() +
                 '}';
     }
 }

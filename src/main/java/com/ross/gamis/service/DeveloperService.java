@@ -1,5 +1,6 @@
 package com.ross.gamis.service;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +29,13 @@ public class DeveloperService {
         return developerRepository.getDevelopersFetched();
     }
 
+    @CacheEvict(value = "developer-search", allEntries = true)
     public Developer addDeveloper(Developer developer) {
         Developer savedDeveloper = developerRepository.save(developer);
         return savedDeveloper;
     }
 
-    @Cacheable("search-developers")
+    @Cacheable("developer-search")
     public List<Developer> searchDevelopersByNameOrCountry(
             String searchTerm) {
         return developerRepository.getDevelopersByNameLike("%" + searchTerm.toLowerCase() + "%");

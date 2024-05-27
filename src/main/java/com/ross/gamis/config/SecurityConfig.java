@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
             auths -> auths
-                    .requestMatchers(regexMatcher("^/(404|games|games/.+|developers|developers/.+|stores|stores/.+)$"),
+                    .requestMatchers(regexMatcher("^/(404|games|games/.+|developers|developers/.+|stores|stores/.+|game-csv)$"),
                             regexMatcher(HttpMethod.GET, "^/login\\?.*"),
                             regexMatcher(HttpMethod.GET, "^/error"))
                         .permitAll()

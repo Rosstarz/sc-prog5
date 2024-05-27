@@ -66,8 +66,6 @@ public class UserGameStoreDtoOut {
     public String toString() {
         return "UserGameStoreDtoOut [id=" + id 
         + ", userId=" + userId 
-        + ", gameStoreId=" + gameStore.getId() 
-        + ", gameId=" + gameStore.getGameId() 
         + ", isOwned=" + isOwned 
         + ", ownedSetDate=" + ownedSetDate 
         + "]";

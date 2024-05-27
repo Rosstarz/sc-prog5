@@ -1,17 +1,23 @@
 package com.ross.gamis.service;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.scheduling.annotation.Async;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ross.gamis.controller.api.dto.game.in.GameDtoIn;
+import com.ross.gamis.domain.Country;
 import com.ross.gamis.domain.Developer;
 import com.ross.gamis.domain.Game;
 import com.ross.gamis.repository.GameRepository;
 import com.ross.gamis.repository.GameStoreRepository;
 import com.ross.gamis.repository.UserGameStoreRepository;
 
+import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 @Service
 @Transactional
@@ -83,5 +89,32 @@ public class GameService {
             gameRepository.save(gameToUpdate);
             return gameToUpdate;
         }
+    }
+
+    @Async
+    @CacheEvict(value = "search-game", allEntries = true)
+    public void handleGamesCsv(InputStream inputStream){
+        Scanner scanner = new Scanner(inputStream);
+        String line = scanner.nextLine();
+        try {
+            // Thread.sleep(4000);
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                var values = line.split(",");
+                Game game = new Game();
+                game.setTitle(values[0]);
+                game.setDescription(values[1]);
+                Developer developer = new Developer();
+                developer.setName(values[2]);
+                developer.setFounded(LocalDate.parse(values[3]));
+                developer.setCountry(Country.valueOf(values[4]));
+                game.setDeveloper(developer);
+                developerService.addDeveloper(developer);
+                gameRepository.save(game);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        scanner.close();
     }
 }

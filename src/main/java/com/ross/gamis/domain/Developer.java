@@ -113,7 +113,6 @@ public class Developer {
                 ", name='" + name + '\'' +
                 ", founded=" + founded +
                 ", country=" + country +
-                ", games.size=" + games.size() +
                 '}';
     }
 }

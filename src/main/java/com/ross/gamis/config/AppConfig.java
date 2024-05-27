@@ -1,8 +1,10 @@
 package com.ross.gamis.config;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.ross.gamis.converter.DeveloperConverter;
 import com.ross.gamis.converter.GameConverter;
@@ -11,6 +13,8 @@ import com.ross.gamis.converter.UserGameStoreConverter;
 import com.ross.gamis.service.StoreService;
 
 @Configuration
+@EnableAsync
+@EnableCaching
 public class AppConfig {
     private final StoreService storeService;
 
